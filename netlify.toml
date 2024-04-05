@@ -1,0 +1,25 @@
+[build]
+    publish = "dist/"
+    command = "npx vite build"
+
+[[redirects]]
+    from = "/public/wm.svg"
+    to = "/wm.svg"
+
+[[redirects]]
+    from = "/public/*"
+    to = "/:splat"
+
+[[redirects]]
+    from = "/src/assets/img/*"
+    to = "/:splat"
+
+#[context.production]
+#  publish = "dist/"
+#  command = "npm run dev"
+
+#[context.deploy-preview]
+#  publish = "dist/"
+
+#[context.branch-deploy.environment]
+#  NODE_ENV = "development"

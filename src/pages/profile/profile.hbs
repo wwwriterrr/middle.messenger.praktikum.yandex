@@ -1,0 +1,22 @@
+<div class="page__profile profile__wrap">
+    <div class="avatar__wrap">
+        <div class="avatar__element {{#unless avatar }}avatar__element_notset{{/unless}}">
+            <img class="avatar__image" src="/public/av1.jpg" alt="">
+            <button class="avatar__button" page="Change Avatar"></button>
+        </div>
+    </div>
+    <div class="profile__name">{{nickname}}</div>
+    <div class="profile__rows">
+        {{> ProfileRow label="Email" type="text" name="email" value=email }}
+        {{> ProfileRow label="Login" type="text" name="login" value=login }}
+        {{> ProfileRow label="First name" type="text" name="first_name" value=first_name }}
+        {{> ProfileRow label="Last name" type="text" name="last_name" value=last_name }}
+        {{> ProfileRow label="Nick name" type="text" name="display_name" value=nickname error="This username is already occupied" }}
+        {{> ProfileRow label="Phone" type="text" name="phone" value=phone }}
+        <div class="profile__manage">
+            {{> Button label="Save" style="display: none;" }}
+            {{> Button label="Change password" classes="button_nofill" page="Change Password" }}
+            {{> Button label="Logout" classes="button_nofill button_red" page="nav" }}
+        </div>
+    </div>
+</div>
