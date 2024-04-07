@@ -1,12 +1,12 @@
 <div class="page__profile profile__wrap">
     <div class="avatar__wrap">
         <div class="avatar__element {{#unless avatar }}avatar__element_notset{{/unless}}">
-            <img class="avatar__image" src="/public/av1.jpg" alt="">
+            <img class="avatar__image" src="/public/av1.jpg" alt="User avatar">
             <button class="avatar__button" page="Change Avatar"></button>
         </div>
     </div>
     <div class="profile__name">{{nickname}}</div>
-    <div class="profile__rows">
+    <form class="form form__profile profile__rows">
         {{> ProfileRow label="Email" type="text" name="email" value=email }}
         {{> ProfileRow label="Login" type="text" name="login" value=login }}
         {{> ProfileRow label="First name" type="text" name="first_name" value=first_name }}
@@ -18,5 +18,5 @@
             {{> Button label="Change password" classes="button_nofill" page="Change Password" }}
             {{> Button label="Logout" classes="button_nofill button_red" page="nav" }}
         </div>
-    </div>
+    </form>
 </div>
