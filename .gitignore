@@ -1,0 +1,6 @@
+**/.DS_Store
+*.log
+./.idea
+./.github
+./dist
+./node_modules

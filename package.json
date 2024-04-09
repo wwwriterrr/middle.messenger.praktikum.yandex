@@ -1,0 +1,36 @@
+{
+  "name": "middle.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "description": "Yandex Praktikum project",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "npx vite --host",
+    "build": "npx vite build",
+    "preview": "npx vite preview",
+    "start": "npx vite build && npx vite --host"
+  },
+  "author": "wwwriterrr",
+  "license": "ISC",
+  "engines" : { 
+    "npm" : "^10.0.0",
+    "node" : "^20.0.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "gulp": "^5.0.0",
+    "gulp-postcss": "^10.0.0",
+    "autoprefixer": "^10.4.19",
+    "postcss-import": "^16.1.0",
+    "postcss-nesting": "^12.1.1",
+    "precss": "^4.0.0",
+    "handlebars": "^4.7.8",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.7",
+    "vite-express": "^0.16.0",
+    "vite-plugin-handlebars": "^2.0.0"
+  },
+  "devDependencies": {
+    "cssnext": "^1.8.5"
+  }
+}

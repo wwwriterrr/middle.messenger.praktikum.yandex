@@ -1,0 +1,39 @@
+$white: #fff;
+$dark: #000;
+$blue: #0577ff;
+$message_blue: #89bfff;
+$dark_blue: #225da3;
+$grey: #e3e3e3;
+$red: #a82b2b;
+$main_font: 'Roboto', sans-serif;
+
+:root{
+    --action-color: $dark_blue;
+    --blue-color: $blue;
+    --message-blue-color: $message_blue;
+    --grey-color: $grey;
+    --action-font: $white;
+    --red-color: $red;
+    --main-font: $main_font;
+}
+
+html{margin: 0;padding: 0;}
+body{margin: 0;padding: 0;font-size: 16px;font-family: var(--main-font);font-weight: 300;}
+*, *::before, *::after{box-sizing: border-box;}
+*, *:focus, *:active{outline: none;}
+*[page],
+*[chat]{cursor: pointer;}
+
+h1, h2, h3{margin: 0;padding: 0;font-size: 1.1em;font-weight: 500;}
+button, input[type=button]{border: 0;margin: 0;padding: 0;background-color: transparent;cursor: pointer;font-family: var(--main-font);font-weight: 300;font-size: 16px;}
+button, input, textarea{font-family: var(--main-font);font-weight: 300;font-size: 16px;border: 0;}
+input:-webkit-autofill {-webkit-box-shadow: 0 0 0 1000px white inset !important;}
+a{text-decoration: none;color: var(--action-color);font-weight: 500;}
+ul, li{list-style: none;margin: 0;padding: 0;}
+
+#app{}
+
+.page{position: relative;}
+.page_center{width: 100%;height: 100vh;padding: 20px 20px 100px 20px;display: flex;align-items: center;justify-content: center;}
+.page__background{z-index: 1;position: fixed;left: 0;top: 0;width: 100%;height: 100%;background-repeat: repeat;}
+.page__inner{z-index: 11;}

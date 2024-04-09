@@ -1,0 +1,28 @@
+.chat-page{position: relative;width: 100%;height: 100vh;overflow: hidden; display: grid;
+    grid-template: 'side header' 60px 'side messages' 1fr 'side form' auto / 400px 1fr;}
+.chat__side{grid-area: side;position: relative; display: grid;grid-template: 'head' auto 'chats' 1fr / 100%;
+    border-right: 1px solid var(--grey-color);}
+.chat__side-head{position:relative; display: flex;flex-direction: column;align-items: flex-end;gap: 10px; padding: 20px;}
+.chat__search-wrap{position: relative;width: 100%;}
+.chat__search-input{height: 40px;width: 100%;padding: 0 16px;border-radius: 20px;background-color: var(--grey-color);}
+.chats-list{display: flex;flex-direction: column; height: 100%;overflow: auto;padding: 0 14px 20px 14px;border-top: 1px solid var(--grey-color);}
+.chat__header{grid-area: header;position: relative;border-bottom: 1px solid var(--grey-color);}
+.chat__messages{grid-area: messages;position: relative;height: 100%;padding: 20px 40px 20px 40px;overflow: auto;}
+.chat__form-wrap{grid-area: form;position: relative;display: flex;justify-content: flex-start; border-top: 1px solid var(--grey-color);}
+.chat__form{position: relative;display: grid;grid-template: auto / 40px 40px 1fr 40px;align-items: center;grid-gap: 0 10px;
+    padding: 10px 20px;width: 600px;}
+.chat__form-avatar-wrap{position: relative;aspect-ratio: 1/1;border-radius: 50%;overflow: hidden;}
+.chat__form-avatar{width: 100%;height: 100%;}
+.chat__form-attach-btn{position: relative;aspect-ratio: 1/1;border-radius: 50%;background-color: var(--grey-color);font-weight: 500;
+    font-size: 30px;color: #a6a6a6;transition: transform .3s ease-out;}
+.chat__form_attach{
+    .chat__form-attach-btn{transform: rotate(45deg);}
+}
+.chat__form-attach-btn{
+    &::before{content: '+';}
+}
+.chat__message{height: 50px;padding: 0 16px;border-radius: 25px; background-color: var(--grey-color);}
+.chat__form-submit{
+    position: relative;aspect-ratio: 1/1;padding: 6px; border-radius: 50%;background-color: var(--blue-color);
+    &::before{content: url('/public/send.svg');display: block;width: 100%;height: 100%;}
+}

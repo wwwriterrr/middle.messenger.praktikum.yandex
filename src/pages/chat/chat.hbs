@@ -1,0 +1,30 @@
+<div class="chat-page">
+    <div class="chat__side">
+        <div class="chat__side-head">
+            {{> Button label="Profile" classes="button_nofill button-greytext button-prof-left" page="profile" }}
+            <label class="chat__search-wrap">
+                <input class="chat__search-input" type="text" placeholder="Search" >
+            </label>
+        </div>
+        <div class="chats-list">
+            {{> ChatsList chats=chats }}
+        </div>
+    </div>
+    <div class="chat__header">
+        <!-- Chat info there -->
+    </div>
+    <div class="chat__messages">
+        {{#each messages}}
+        {{> Message this }}
+        {{/each}}
+    </div>
+    <div class="chat__form-wrap">
+        <form class="chat__form">
+            <div class="chat__form-avatar-wrap"><img class="chat__form-avatar" src="/public/av1.jpg" alt=""></div>
+            <button class="chat__form-attach-btn" type="button"></button>
+            <input class="chat__message" type="text" name="message" placeholder="Your message" spellcheck="false">
+            <button class="chat__form-submit" type="submit"></button>
+            {{> AttachModal }}
+        </form>
+    </div>
+</div>

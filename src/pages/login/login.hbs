@@ -1,0 +1,12 @@
+<div class="page page_center">
+    <div class="form__wrap">
+        <Form class="form__login">
+            <h1 class="form__title">Login in chat</h1>
+            {{> Input label="Login" type="text" name="login" }}
+            {{> Input label="Password" type="password" name="password" }}
+            {{> Button label="I don't remember the password" type="link" classes="button_nopasswd button_nofill button-greytext button_normweight" page="Remember password" }}
+            {{> Button label="Sign in" type="primary" mode="action" }}
+            {{> Button label="Sign up" type="link" page="registrate" }}
+        </Form>
+    </div>
+</div>

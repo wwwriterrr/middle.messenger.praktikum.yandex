@@ -1,0 +1,4 @@
+.form__login{
+    position: relative;display: grid;grid-template: repeat(5, auto) / 1fr 1fr;grid-gap: 0 6px;
+    .button_nopasswd{grid-column-end: span 2;margin: 10px 0 0 0!important;}
+}

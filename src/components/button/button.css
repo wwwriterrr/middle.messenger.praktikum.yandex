@@ -1,0 +1,22 @@
+.button{
+    position: relative;height: 40px;background-color: transparent;border: 1px solid #e3e3e3;border-radius: 6px;
+    &_action{background-color: var(--action-color);color: var(--action-font);border: 0;font-weight: 400;}
+    &_nofill{height: auto;padding: 2px 4px;background-color: transparent;color: var(--action-color);font-weight: 500;border: 0;}
+    &_red{color: var(--red-color);}
+    &-greytext,
+    &_greytext{color: #444;}
+    &_hidden{display: none;}
+    &_normweight{font-weight: 400;}
+}
+.button-prof-left{
+    &::before{content: url('/public/profile.svg');display: inline-block;width: 14px;height: 14px;margin: 0 4px 0 0;}
+}
+.button_photo{
+    &::before{content: url('/public/add_photo.svg');display: inline-block;width: 30px;height: 30px;}
+}
+.button_file{
+    &::before{content: url('/public/add_file.svg');display: inline-block;width: 30px;height: 30px;}
+}
+.button_location{
+    &::before{content: url('/public/add_location.svg');display: inline-block;width: 30px;height: 30px;}
+}
