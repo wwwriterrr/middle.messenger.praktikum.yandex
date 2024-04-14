@@ -1,14 +1,15 @@
-import Handlebars from 'handlebars';
-import * as Components from './components';
-import * as Pages from './pages';
+import Handlebars from 'handlebars'
+import * as Components from './components'
+import * as Pages from './pages'
 
 
 Handlebars.registerHelper('if_eq', function(a, b, opts) {
-    if (a == b) {
-        return opts.fn(this);
-    } else {
-        return opts.inverse(this);
-    }
+  const t: any = this
+  if (a == b) {
+    return opts.fn(t)
+  } else {
+    return opts.inverse(t)
+  }
 });
 
 const user_data = {

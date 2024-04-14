@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "npx vite --host",
-    "build": "npx vite build",
+    "prebuild": "tsc --noEmit",
+    "build": "npm run prebuild && npx vite build",
     "preview": "npx vite preview",
     "start": "npx vite build && npx vite --host"
   },
