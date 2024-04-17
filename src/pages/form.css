@@ -10,6 +10,7 @@
 .form__login{
     .input{grid-column-end: span 2;}
 }
+.form__login-wrap{grid-column-end: span 2;display: grid;grid-template-columns: 1fr 1fr;grid-gap: 0 6px;}
 .form__row{
     position: relative;margin: 0 0 10px 0;
     &_margin-top{margin: 10px 0 0 0;}
