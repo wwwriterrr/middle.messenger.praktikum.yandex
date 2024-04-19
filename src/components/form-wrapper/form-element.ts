@@ -8,7 +8,7 @@ class FormElement extends Block {
 
     render(): string {
         return `
-            <form class="form__login">
+            <form class="form {{classes}}">
                 <h1 class="form__title">{{title}}</h1>
                 {{{ formBody }}}
             </form>

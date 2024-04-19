@@ -1,5 +1,7 @@
 import Block from "../../core/Block";
 import FormElement from "./form-element";
+import isEqual from 'lodash/isEqual';
+
 
 export default class FormWrapper extends Block {
     constructor(props: any) {
@@ -8,6 +10,7 @@ export default class FormWrapper extends Block {
             FormElement: new FormElement({
                 title: props.title,
                 formBody: props.formBody,
+                classes: props.classes,
                 events: {submit: (e) =>
                     {
                         e.preventDefault();
@@ -16,6 +19,15 @@ export default class FormWrapper extends Block {
                 }
             })
         });
+    }
+
+    componentDidUpdate(oldProps: any, newProps: any): boolean {
+        if(isEqual(oldProps, newProps)) {
+            return false;
+        }
+
+        console.log('Change Form Wrapper props');
+        return true;
     }
 
     render() {

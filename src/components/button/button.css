@@ -7,6 +7,10 @@
     &_greytext{color: #444;}
     &_hidden{display: none;}
     &_normweight{font-weight: 400;}
+    &.loading{
+        color: transparent;
+        &::before{content: url('/public/load.svg');position: absolute;left: calc(50% - 15px);top: calc(50% - 15px);width: 30px;height: 30px;}
+    }
 }
 .button-prof-left{
     &::before{content: url('/public/profile.svg');display: inline-block;width: 14px;height: 14px;margin: 0 4px 0 0;}

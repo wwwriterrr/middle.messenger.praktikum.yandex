@@ -1,17 +1,24 @@
+@import '/src/vars.css';
+
 .input{
     position: relative;margin: 22px 0 10px 0;
     &__container{position: relative;display: block;padding: 0;}
     &__element{
         width: 100%;height: 40px;padding: 0 7px;border-radius: 6px;border: 1px solid #e3e3e3;
         &:focus + .input__label,
-        &_filled + .input__label{transform: translateY(-20px) translateX(-25px) scale(.8);}
+        &_filled + .input__label{transform: translateY(-20px) translateX(-30px) scale(.8);}
     }
     &__label{
         position: absolute;width: 100%;left: 0;top: 0;padding: 0 0 0 8px;transform: translateY(11px);
         transition: transform .2s ease-out;cursor: text;pointer-events: none;
     }
     &__error{
-        color: #a82b2b;padding: 0 0 0 6px;margin: 4px 0 0 0;
+        color: $input_red;padding: 0 0 0 6px;margin: 4px 0 0 0;font-size: .8em;font-weight: 400;
         &:empty{margin: 0;}
+    }
+
+    &_error{
+        .input__label{color: $input_red;}
+        .input__element{border-color: $input_red;}
     }
 }

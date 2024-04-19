@@ -1,4 +1,4 @@
-import { FormLogin, FormWrapper, Input } from "../../components"
+import { FormLogin, FormWrapper } from "../../components"
 import Block from "../../core/Block"
 
 export default class LoginPage extends Block {
@@ -13,12 +13,22 @@ export default class LoginPage extends Block {
         super({
             ...props,
             FormLogin: new FormWrapper({
-                title: 'Вход',
+                title: 'Sign in',
+                classes: 'form__login',
                 formBody: new FormLogin({})
             }),
             //inputComponentKeys: Object.keys(inputComponents),
             //...inputComponents
         })
+    }
+
+    componentDidUpdate(oldProps: any, newProps: any): boolean {
+        if(oldProps === newProps) {
+            return false;
+        }
+
+        console.log('Change Login page props');
+        return true;
     }
 
     render() {

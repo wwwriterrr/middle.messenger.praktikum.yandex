@@ -6,5 +6,6 @@ export { ChatsList } from './chats_list';
 export { Modal } from './modal';
 export { Message } from './message';
 export { AttachModal } from './attach_modal';
-export { FormWrapper } from './form-wrapper'
-export { FormLogin } from './form-login'
+export { FormWrapper } from './form-wrapper';
+export { FormLogin } from './form-login';
+export { FormRegistrate } from './form-registrate';

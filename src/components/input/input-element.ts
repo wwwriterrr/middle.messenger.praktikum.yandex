@@ -1,6 +1,7 @@
 import Block from "../../core/Block";
 import ErrorLine from "./error-line";
 import Input from "./input";
+import isEqual from 'lodash/isEqual';
 
 
 class InputElement extends Block {
@@ -8,26 +9,24 @@ class InputElement extends Block {
         super({
             ...props,
             Input: new Input({
+                ...props,
                 events: {
                     blur: props.onBlur || (() => {}),
-                },
-                type: props.type,
-                name: props.name,
-                value: props.value
+                }
             }),
             ErrorLine: new ErrorLine({
-                error: props.error
+                //error: props.error
             })
         })
     }
 
     componentDidUpdate(oldProps: any, newProps: any): boolean {
-        if(oldProps === newProps) {
+        //if(oldProps === newProps) {
+        if(isEqual(oldProps, newProps)){
             return false;
         }
 
-        console.log('Input Element update');
-
+        console.log('Change Input Element props');
         this.children.Input.setProps(newProps);
         this.children.ErrorLine.setProps(newProps);
         return true;

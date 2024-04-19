@@ -1,27 +1,18 @@
 import Block from "../../core/Block";
+//import * as events from "events";
+import isEqual from 'lodash/isEqual';
 
 class Input extends Block {
     constructor(props: {}) {
         super(props)
     }
 
-    /*init(){
-        const onInputBlurBind = this.onInputBlur.bind(this);
-        this.setProps({events: {change: onInputBlurBind}})
-    }
-
-    onInputBlur(e) {
-        const value = e.target.value;
-        if(value !== '') this.setProps({classes: 'input__element_filled', value: value});
-        else this.setProps({classes: '', value: value});
-    }*/
-
     componentDidUpdate(oldProps: any, newProps: any): boolean {
-        if(oldProps === newProps) {
+        if(isEqual(oldProps, newProps)) {
             return false;
         }
 
-        console.log('Input update');
+        console.log('Change Input props');
         return true;
     }
 
