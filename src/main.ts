@@ -15,6 +15,7 @@ Handlebars.registerHelper('if_eq', function(a, b, opts) {
 const pages = {
   'login': [ Pages.LoginPage ],
   'registrate': [ Pages.RegistratePage ],
+  'profile': [ Pages.ProfilePage ],
   'nav': [ Pages.NavigatePage ]
 };
 
@@ -38,7 +39,8 @@ function navigate(page: string) {
   container.innerHTML = Handlebars.compile(source)(context);
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('login'));
+//document.addEventListener('DOMContentLoaded', () => navigate('login'));
+document.addEventListener('DOMContentLoaded', () => navigate('profile'));
 
 document.addEventListener('click', e => {
   //@ts-ignore

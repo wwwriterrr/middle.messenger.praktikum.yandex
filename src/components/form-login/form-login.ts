@@ -11,7 +11,6 @@ export default class FormLogin extends Block {
         const onChangePasswordBind = this.onChangePassword.bind(this);
         const onLoginBind = this.onLogin.bind(this);
 
-
         const InputLogin = new Input({label: 'Login', type: 'text', name: 'login', value: '', error: null, classes: '', onBlur: onChangeLoginBind});
         const InputPassword = new Input({label: 'Password', type: 'password', name: 'password', value: '', error: null, classes: '', onBlur: onChangePasswordBind});
         const ButtonLogin = new Button({label: 'Sign In', type: 'primary', mode: 'action', onClick: onLoginBind});

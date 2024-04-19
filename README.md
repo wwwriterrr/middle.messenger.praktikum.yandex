@@ -21,7 +21,7 @@
    - ```cd middle.messenger.praktikum.yandex.git```
 
 3. Команды:
-   - ```npm install``` - установка необходимых пакетов;
+   - ```npm install``` - установка окружения;
    - ```npm run build``` - сборка проекта с помощью Vite;
    - ```npm run start``` - запуск проекта;
    - ```npm run dev``` - запуск проекта в режиме разработки;

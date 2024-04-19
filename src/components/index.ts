@@ -9,3 +9,4 @@ export { AttachModal } from './attach_modal';
 export { FormWrapper } from './form-wrapper';
 export { FormLogin } from './form-login';
 export { FormRegistrate } from './form-registrate';
+export { FormProfile } from './form-profile';

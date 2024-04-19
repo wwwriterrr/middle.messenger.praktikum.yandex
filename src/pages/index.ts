@@ -1,7 +1,8 @@
 export {NavigatePage} from './nav';
-export {default as LoginPage} from './login';
-export {default as RegistratePage} from './registrate';
-export {ProfilePage} from './profile';
+export { default as LoginPage } from './login';
+export { default as RegistratePage } from './registrate';
+export { default as ProfilePage } from './profile';
+//export {ProfilePage} from './profile';
 export {ChatPage} from './chat';
 export {ErrorPage} from './error';
 export {ModalChangePasswd} from './modals/modal_change_passwd';

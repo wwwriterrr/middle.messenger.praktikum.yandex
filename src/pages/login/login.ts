@@ -1,5 +1,7 @@
 import { FormLogin, FormWrapper } from "../../components"
 import Block from "../../core/Block"
+import isEqual from 'lodash/isEqual';
+
 
 export default class LoginPage extends Block {
     constructor(props: any) {
@@ -23,7 +25,7 @@ export default class LoginPage extends Block {
     }
 
     componentDidUpdate(oldProps: any, newProps: any): boolean {
-        if(oldProps === newProps) {
+        if(isEqual(oldProps, newProps)){
             return false;
         }
 
