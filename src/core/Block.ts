@@ -3,6 +3,7 @@
 import EventBus from "./EventBus";
 import {nanoid} from 'nanoid';
 import Handlebars from "handlebars";
+import Validator from "../utils/validator";
 
 export default class Block {
     static EVENTS = {
@@ -104,6 +105,7 @@ export default class Block {
         if (elementInDOM) {
             setTimeout(() => this._checkInDom(), 1000);
             return;
+
         }
 
         this.eventBus().emit(Block.EVENTS.FLOW_CWU, this.props);
@@ -246,6 +248,36 @@ export default class Block {
         }
 
         return this.element;
+    }
+
+    onInputBlur(e){
+        const inputValue = e.target.value;
+        const inputName = e.target.name;
+        const props = {value: inputValue, error: null};
+        let element = null;
+        Object.keys(this.children).map(key => {
+            if(this.children[key].props.name === inputName) element = this.children[key];
+        })
+        if(!element) throw new Error('Element name is lost');
+
+        if( inputValue !== '' ) props.classes = 'input__element_filled';
+        else{
+            props.classes = '';
+            element.setProps(props);
+            return;
+        }
+
+        try{
+            Validator(inputValue, name=inputName);
+        } catch (error) {
+            props.error = error.message;
+            element.setProps(props);
+            return;
+        }
+
+        element.setProps(props);
+
+        return;
     }
 
     _makePropsProxy(props) {

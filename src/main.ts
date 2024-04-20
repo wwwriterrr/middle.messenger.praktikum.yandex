@@ -12,11 +12,16 @@ Handlebars.registerHelper('if_eq', function(a, b, opts) {
   }
 });
 
+const display_pages = ['login', 'registrate', 'chat', 'profile', 'Error 404', 'Error 50*'];
 const pages = {
   'login': [ Pages.LoginPage ],
   'registrate': [ Pages.RegistratePage ],
   'profile': [ Pages.ProfilePage ],
-  'nav': [ Pages.NavigatePage ]
+  'nav': [ Pages.NavigatePage, { pages: display_pages } ],
+  'chat': [ Pages.ChatPage, {} ],
+
+  'Error 404': [Pages.ErrorPage, {code: 404}],
+  'Error 50*': [Pages.ErrorPage, {code: 500}],
 };
 
 Object.entries(Components).forEach(([ name, component ]) => {
@@ -40,7 +45,8 @@ function navigate(page: string) {
 }
 
 //document.addEventListener('DOMContentLoaded', () => navigate('login'));
-document.addEventListener('DOMContentLoaded', () => navigate('profile'));
+//document.addEventListener('DOMContentLoaded', () => navigate('profile'));
+document.addEventListener('DOMContentLoaded', () => navigate('nav'));
 
 document.addEventListener('click', e => {
   //@ts-ignore

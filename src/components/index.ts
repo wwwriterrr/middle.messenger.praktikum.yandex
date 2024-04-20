@@ -1,4 +1,5 @@
 export { Button } from './button';
+export { AvatarButton } from './button-avatar';
 export { Input } from './input';
 export { ProfileRow } from './profile_row';
 export { ChatItem } from './chat_item';
@@ -10,3 +11,6 @@ export { FormWrapper } from './form-wrapper';
 export { FormLogin } from './form-login';
 export { FormRegistrate } from './form-registrate';
 export { FormProfile } from './form-profile';
+export { ModalWrap } from './modal-wrap';
+export { ModalAvatar } from './modal-avatar';
+export { ModalPassword } from './modal-password';

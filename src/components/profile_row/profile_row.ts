@@ -12,6 +12,7 @@ class ProfileRow extends Block{
                 ...props,
                 events: {
                     blur: props.onBlur || (() => {}),
+                    //change: props.onChange || (() => {}),
                 }
             }),
             ErrorLine: new ProfileErrorLine({
@@ -25,7 +26,7 @@ class ProfileRow extends Block{
             return false;
         }
 
-        console.log('Change Input Element props');
+        console.log('Change Profile Row props');
         this.children.ProfileInput.setProps(newProps);
         this.children.ErrorLine.setProps(newProps);
         return true;

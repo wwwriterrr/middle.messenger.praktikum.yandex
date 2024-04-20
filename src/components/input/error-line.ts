@@ -18,7 +18,7 @@ class ErrorLine extends Block {
 
     render(): string {
         return (`
-            <div class="input__error">{{error}}</div>
+            <div class="input__error {{errorClasses}}">{{error}}</div>
         `)
     }
 }

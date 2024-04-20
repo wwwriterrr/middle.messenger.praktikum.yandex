@@ -1,14 +1,13 @@
 import Block from "../../core/Block"
 import { Button } from "../button"
 import { Input } from "../input"
-import Validator from "../../utils/validator";
 import isEqual from 'lodash/isEqual';
 
 
 export default class FormLogin extends Block {
     init() {
-        const onChangeLoginBind = this.onChangeLogin.bind(this);
-        const onChangePasswordBind = this.onChangePassword.bind(this);
+        const onChangeLoginBind = this.onInputBlur.bind(this);
+        const onChangePasswordBind = this.onInputBlur.bind(this);
         const onLoginBind = this.onLogin.bind(this);
 
         const InputLogin = new Input({label: 'Login', type: 'text', name: 'login', value: '', error: null, classes: '', onBlur: onChangeLoginBind});
@@ -34,40 +33,6 @@ export default class FormLogin extends Block {
         return true;
     }
 
-    onChangeLogin(e) {
-        const inputValue = e.target.value;
-        const element = this.children.InputLogin;
-
-        const props = {value: inputValue, error: null};
-
-        if( inputValue !== '' ) props.classes = 'input__element_filled';
-        else{
-            props.classes = '';
-            element.setProps(props);
-            return;
-        }
-
-        try{
-            Validator(inputValue);
-        } catch (error) {
-            props.error = error.message;
-            element.setProps(props);
-            return;
-        }
-
-        element.setProps(props);
-    }
-
-    onChangePassword(e) {
-        const inputValue = e.target.value;
-        const element = this.children.InputPassword;
-
-        if( inputValue !== '' ) element.setProps({classes: 'input__element_filled'})
-        else element.setProps({classes: ''})
-
-        element.setProps({error: null, value: inputValue});
-    }
-
     onLogin() {
         const btn = this.children.ButtonLogin;
         if(btn.props.isLoading) return;
@@ -79,13 +44,9 @@ export default class FormLogin extends Block {
 
         if(!loginValue){
             errors.push([InputLogin, 'Login is required field'])
-            //loginElement.setProps({error: 'Login is required field'});
-            //return;
         }
         if(!passwdValue){
             errors.push([InputPassword, 'Password is required field'])
-            //passwdElement.setProps({error: 'Password is required field'});
-            //return;
         }
 
         if(errors.length !== 0){
