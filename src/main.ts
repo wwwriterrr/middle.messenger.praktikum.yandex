@@ -20,6 +20,9 @@ const pages = {
   'nav': [ Pages.NavigatePage, { pages: display_pages } ],
   'chat': [ Pages.ChatPage, {} ],
 
+  'Remember password': [ Pages.RememberPassword ],
+  'Remember password (authenticated)': [ Pages.RememberPassword, {is_authenticated: true} ],
+
   'Error 404': [Pages.ErrorPage, {code: 404}],
   'Error 50*': [Pages.ErrorPage, {code: 500}],
 };

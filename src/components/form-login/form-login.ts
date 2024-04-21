@@ -10,8 +10,11 @@ export default class FormLogin extends Block {
         const onChangePasswordBind = this.onInputBlur.bind(this);
         const onLoginBind = this.onLogin.bind(this);
 
+        //{{> Button label="I don't remember the password" type="link" classes="button_nopasswd button_nofill button-greytext button_normweight" page="Remember password" }}
+
         const InputLogin = new Input({label: 'Login', type: 'text', name: 'login', value: '', error: null, classes: '', onBlur: onChangeLoginBind});
         const InputPassword = new Input({label: 'Password', type: 'password', name: 'password', value: '', error: null, classes: '', onBlur: onChangePasswordBind});
+        const ButtonRemember = new Button({label: 'I don\'t remember the password', type: 'link', classes: 'button_nopasswd button_nofill button-greytext button_normweight', page: 'Remember password'})
         const ButtonLogin = new Button({label: 'Sign In', type: 'primary', mode: 'action', onClick: onLoginBind});
         const ButtonSignup = new Button({label: 'Sign Up', type: 'link', page: 'registrate'});
 
@@ -19,6 +22,7 @@ export default class FormLogin extends Block {
             ...this.children,
             InputLogin,
             InputPassword,
+            ButtonRemember,
             ButtonLogin,
             ButtonSignup
         }
@@ -68,6 +72,7 @@ export default class FormLogin extends Block {
             <div class="form__login-wrap {{#if error}}form__login-wrap_error{{/if}}">
                 {{{ InputLogin }}}
                 {{{ InputPassword }}}
+                {{{ ButtonRemember }}}
                 {{{ ButtonLogin }}}
                 {{{ ButtonSignup }}}
             </div>
