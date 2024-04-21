@@ -268,7 +268,7 @@ export default class Block {
         }
 
         try{
-            Validator(inputValue, name=inputName);
+            Validator(inputValue, inputName);
         } catch (error) {
             props.error = error.message;
             element.setProps(props);

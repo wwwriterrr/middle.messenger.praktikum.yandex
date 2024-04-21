@@ -16,8 +16,8 @@ export default class FormRegistrate extends Block {
         const InputLName = new Input({label: 'Last name', type: 'text', name: 'second_name', value: '', error: null, classes: '', onBlur: onChangeFieldBind});
         const InputPassword = new Input({label: 'Password', type: 'password', name: 'password', value: '', error: null, classes: '', onBlur: onChangeFieldBind});
         const InputRPassword = new Input({label: 'Retype password', type: 'password', name: 'retype-password', value: '', error: null, classes: '', onBlur: onChangeFieldBind});
-        const ButtonSignup = new Button({label: 'Sign Un', type: 'primary', mode: 'action', onClick: onSignupBind});
-        const ButtonSignin = new Button({label: 'Sign Ip', type: 'link', page: 'login'});
+        const ButtonSignup = new Button({label: 'Sign Up', type: 'primary', mode: 'action', onClick: onSignupBind});
+        const ButtonSignin = new Button({label: 'Sign In', type: 'link', page: 'login'});
 
         this.children = {
             ...this.children,

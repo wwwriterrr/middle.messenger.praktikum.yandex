@@ -1,4 +1,4 @@
-const Validator = (value, name='login') => {
+const Validator = (value: string, name='login') => {
 
     const validateErrorText = () => {
         if(value === 'error') throw new Error('Field not to be ERROR');
@@ -20,6 +20,19 @@ const Validator = (value, name='login') => {
         if(!pattern.test(value)) throw new Error(`Invalid email format`);
     }
 
+    const nameValidate = () => {
+        const pattern = /^[А-ЯЁ|A-Z][а-яё|a-z]+$/
+        if(!pattern.test(value)) throw new Error(`The field must contain Latin or Russian alphabet characters, starting with a capital letter`);
+    }
+
+    const loginValidate = () => {
+        if(value.length < 3) throw new Error(`Login cannot be shorter than 3 characters`);
+        const numPattern = /^[0-9]+$/;
+        if(numPattern.test(value)) throw new Error(`The login cannot consist only of numbers`);
+        const pattern = /^[a-z|0-9|\-|_]+$/i;
+        if(!pattern.test(value)) throw new Error(`The login may consist of letters of the Latin alphabet and numbers, may contain a hyphen or an underscore`);
+    }
+
     validateErrorText();
     lengthValidate();
     if(name === 'phone'){
@@ -27,6 +40,12 @@ const Validator = (value, name='login') => {
     }
     if(name === 'email'){
         emailValidate();
+    }
+    if(name === 'first_name' || name === 'second_name'){
+        nameValidate();
+    }
+    if(name === 'login'){
+        loginValidate();
     }
 }
 

@@ -33,6 +33,11 @@
     "vite-plugin-handlebars": "^2.0.0"
   },
   "devDependencies": {
-    "cssnext": "^1.8.5"
+    "@typescript-eslint/eslint-plugin": "^7.7.0",
+    "@typescript-eslint/parser": "^7.7.0",
+    "cssnext": "^0.0.0",
+    "eslint": "^9.1.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "stylelint": "^16.3.1"
   }
 }
