@@ -6,7 +6,12 @@ import isEqual from 'lodash/isEqual';
 
 export default class ModalPassword extends Block{
     constructor(props) {
-        super(props);
+        super({
+            ...props,
+            events: {
+                submit: (e) => { e.preventDefault();e.stopImmediatePropagation(); },
+            }
+        });
     }
 
     init(){
@@ -39,7 +44,28 @@ export default class ModalPassword extends Block{
     }
 
     onSubmit(){
-        console.log('Submit');
+        const {InputOldPasswd, InputNewPasswd, InputRtPasswd} = this.children;
+        const errors = [];
+
+        [InputOldPasswd, InputNewPasswd, InputRtPasswd].map((input) => {
+            if(!input.props.value) errors.push([input, 'Field cannot be empty']);
+            if(input.props.error) errors.push([input, input.props.error]);
+        })
+
+        if(errors.length !== 0){
+            errors.map((err) => {
+                err[0].setProps({error: err[1]});
+            })
+            return false;
+        }
+
+        if(InputNewPasswd.props.value !== InputRtPasswd.props.value){
+            InputNewPasswd.setProps({error: 'The values are not equal'});
+            InputRtPasswd.setProps({error: 'The values are not equal'});
+            return false;
+        }
+
+        console.log('Submit', {password: InputOldPasswd.props.value, new_password: InputNewPasswd.props.value});
     }
 
     render() {

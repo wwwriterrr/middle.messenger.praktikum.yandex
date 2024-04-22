@@ -46,6 +46,14 @@ export default class ChatPage extends Block{
             Messages,
             MessageForm
         }
+
+        // Scroll to last message
+        setTimeout(() => {
+            const msgs = document.querySelectorAll('.message-container');
+            if(msgs.length !== 0) {
+                msgs[msgs.length-1].scrollIntoView({block: "center",});
+            }
+        }, 100)
     }
 
     render() {

@@ -60,6 +60,8 @@ export default class FormLogin extends Block {
             return;
         }
 
+        if(InputLogin.props.error || InputPassword.props.error) return;
+
         console.log('Submit', {login: loginValue, password: passwdValue});
         btn.setProps({isLoading: true});
         setTimeout(() => { btn.setProps({isLoading: null}); }, 3000);

@@ -3,7 +3,6 @@ import Block from "../../core/Block";
 
 export default class ChatItem extends Block{
     constructor(props) {
-        console.log(props);
         super(props);
     }
 

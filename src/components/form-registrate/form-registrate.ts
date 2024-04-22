@@ -43,6 +43,37 @@ export default class FormRegistrate extends Block {
     }
 
     onSignup() {
+        const {InputPassword, InputRPassword} = this.children;
+        const errors = [];
+        const res = {};
+
+        Object.keys(this.children).map((key) => {
+            const item = this.children[key];
+            if(item.props.name){
+                console.log(item.props.error);
+                if(!item.props.value){
+                    errors.push([item, `The field cannot be empty`]);
+                }
+                if(item.props.error) throw new Error(item.props.error);
+                res[item.props.name] = item.props.value;
+            }
+        })
+
+        if(errors.length !== 0){
+            errors.map((err) => {
+                err[0].setProps({error: err[1]});
+            })
+            return;
+        }
+
+        if(InputPassword.props.value !== InputRPassword.props.value){
+            InputPassword.setProps({error: 'The values are not equal'});
+            InputRPassword.setProps({error: 'The values are not equal'});
+            return;
+        }
+
+        console.log('submit', res);
+
         return;
     }
 

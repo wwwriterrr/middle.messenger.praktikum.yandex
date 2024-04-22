@@ -1,7 +1,7 @@
 import Block from "../../core/Block";
 
 
-export default class ModalCloseBtn extends Block{
+export default class ChatButton extends Block{
     constructor(props) {
         super({
             ...props,
@@ -13,7 +13,7 @@ export default class ModalCloseBtn extends Block{
 
     render() {
         return `
-            <button class="modal__close-btn"></button>
+            <button class="{{ classes }}" type="{{ type }}"></button>
         `
     }
 }

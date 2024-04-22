@@ -19,7 +19,9 @@
     &-attach + &_self,
     &-attach_self + &:not(&_self),
     &_self + &:not(&_self),
-    &:not(&_self) + &_self{margin-top: 20px;}
+    &:not(&_self) + &_self,
+    &-container:not(&-container_self) + &-container_self,
+    &-container_self + &-container:not(&-container_self){margin-top: 20px;}
 }
 .message-attach{
     position: relative;margin: 0 0 6px 0;padding: 0 0 0 60px;max-width: 500px;

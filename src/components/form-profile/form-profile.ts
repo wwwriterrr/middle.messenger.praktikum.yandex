@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import Block from "../../core/Block"
 import { Button } from "../button"
 import ProfileRow from "../profile_row/profile_row";
@@ -39,8 +41,8 @@ export default class FormLogin extends Block {
             oldValue: 'Doe', error: null, onBlur: onChangeInputBind});
         const InputNName = new ProfileRow({label: 'Nickname', type: 'text', name: 'display_name', value: 'Rocker',
             oldValue: 'Rocker', error: null, onBlur: onChangeInputBind});
-        const InputPhone = new ProfileRow({label: 'Phone number', type: 'text', name: 'phone', value: '+7 (999) 345-67-89',
-            oldValue: '+7 (999) 345-67-89', error: null, onBlur: onChangeInputBind});
+        const InputPhone = new ProfileRow({label: 'Phone number', type: 'text', name: 'phone', value: '+79993456789',
+            oldValue: '+79993456789', error: null, onBlur: onChangeInputBind});
         const ButtonSave = new Button({label: 'Save', type: 'primary', mode: 'action', onClick: onSaveProfileBind});
         const ButtonChangePasswd = new Button({label: 'Change password', classes: 'button_nofill', onClick: onChangePasswordBind});
         const ButtonLogout = new Button({label: 'Log out', classes: 'button_nofill button_red', type: 'link', page: 'Nav'});

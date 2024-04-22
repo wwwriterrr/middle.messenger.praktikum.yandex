@@ -28,7 +28,13 @@ export default class FormRemember extends Block{
     }
 
     submitForm(){
-        console.log('submit');
+        const input = this.children.InputEmail;
+        const value = input.props.value;
+
+        if(!value) return;
+        if(input.props.error) return;
+
+        console.log('submit', {login: value});
     }
 
     render() {
