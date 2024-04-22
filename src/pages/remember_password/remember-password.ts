@@ -4,6 +4,8 @@ import { RememberPage, FormRemember } from "../../components/";
 
 interface IProps {
     is_authenticated?: boolean,
+    RememberAuth?: Block<object>,
+    RememberForm?: Block<object>
 }
 
 

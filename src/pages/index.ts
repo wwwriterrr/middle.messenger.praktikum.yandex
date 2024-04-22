@@ -1,10 +1,7 @@
 export { NavigatePage } from './nav';
-export { default as LoginPage } from './login';
-export { default as RegistratePage } from './registrate';
-export { default as ProfilePage } from './profile';
-//export {ProfilePage} from './profile';
+export { LoginPage } from './login';
+export { RegistratePage } from './registrate';
+export { ProfilePage } from './profile';
 export { ChatPage } from './chat';
 export { ErrorPage } from './error';
-//export {ModalChangePasswd} from './modals/modal_change_passwd';
-//export {ModalChangeAvatar} from './modals/modal_change_avatar';
-//export {RememberPassword} from './remember_password';
+export { RememberPassword } from './remember_password';
