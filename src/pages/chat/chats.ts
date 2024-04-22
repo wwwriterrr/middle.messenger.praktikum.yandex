@@ -2,7 +2,14 @@ import Block from "../../core/Block";
 import { Button, ChatsList, MessagesList, ChatForm } from "../../components";
 
 
-export default class ChatPage extends Block{
+interface IProps{
+    ButtonProfile: Block<object>,
+    Chats: Block<object>,
+    Messages: Block<object>,
+    MessageForm: Block<object>
+}
+
+export default class ChatPage extends Block<IProps>{
     init(){
         const chats = [
             {id: 1, avatar: '/public/av1.jpg', name: 'Batman', msg: 'Stuff sooner subjects indulgence forty child theirs unpleasing supported projecting certain.', date: '12:10', count: 4},

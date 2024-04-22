@@ -1,10 +1,16 @@
 import Block from "../../core/Block";
 import ModalCloseBtn from "./modal-close-btn";
-import isEqual from 'lodash/isEqual';
 
 
-export default class ModalWrap extends Block{
-    constructor(props) {
+interface IProps{
+    modalTitle: string,
+    ModalClose?: Block<object>,
+    modalContent?: Block<object>,
+    modalVisible?: boolean
+}
+
+export default class ModalWrap extends Block<IProps>{
+    constructor(props: IProps) {
         super(props);
 
     }
@@ -18,15 +24,6 @@ export default class ModalWrap extends Block{
             ...this.children,
             ModalClose
         }
-    }
-
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
-        if(isEqual(oldProps, newProps)) {
-            return false;
-        }
-
-        console.log('Change Modal Wrap props');
-        return true;
     }
 
     onClickCloseBtn(){

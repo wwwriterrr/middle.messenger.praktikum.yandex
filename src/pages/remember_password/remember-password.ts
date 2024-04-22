@@ -2,8 +2,13 @@ import Block from "../../core/Block"
 import { RememberPage, FormRemember } from "../../components/";
 
 
-export default class RememberPassword extends Block{
-    constructor(props) {
+interface IProps {
+    is_authenticated?: boolean,
+}
+
+
+export default class RememberPassword extends Block<IProps>{
+    constructor(props: IProps) {
         super({
             ...props,
             RememberAuth: new RememberPage({}),

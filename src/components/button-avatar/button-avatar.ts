@@ -1,8 +1,12 @@
 import Block from "../../core/Block";
 
 
-export default class AvatarButton extends Block{
-    constructor(props) {
+interface IProps{
+    onClick?: () => void
+}
+
+export default class AvatarButton extends Block<IProps>{
+    constructor(props: IProps) {
         super({
             ...props,
             events: {

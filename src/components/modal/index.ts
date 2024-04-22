@@ -1,2 +1,2 @@
-import './modal.css';
-export {default as Modal} from './modal.hbs?raw';
+//import './modal.css';
+//export {default as Modal} from './modal.hbs?raw';

@@ -4,7 +4,15 @@ import Input from "./input";
 import isEqual from 'lodash/isEqual';
 
 
-class InputElement extends Block {
+interface IProps{
+    error?: string,
+    label: string,
+    Input: Block<object>,
+    ErrorLine: Block<object>,
+    onBlur: () => void
+}
+
+class InputElement extends Block<IProps> {
     constructor(props: any) {
         super({
             ...props,
@@ -14,9 +22,7 @@ class InputElement extends Block {
                     blur: props.onBlur || (() => {}),
                 }
             }),
-            ErrorLine: new ErrorLine({
-                //error: props.error
-            })
+            ErrorLine: new ErrorLine({})
         })
     }
 

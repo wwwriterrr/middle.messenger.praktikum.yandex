@@ -8,6 +8,7 @@
     "dev": "npx vite --host",
     "prebuild": "tsc --noEmit",
     "build": "npm run prebuild && npx vite build",
+    "linting": "npx eslint .",
     "preview": "npx vite preview",
     "start": "npx vite build && npx vite --host"
   },
@@ -33,6 +34,7 @@
     "vite-plugin-handlebars": "^2.0.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.0",
     "cssnext": "^0.0.0",
     "eslint": "^9.1.0",
     "stylelint": "^16.3.1"

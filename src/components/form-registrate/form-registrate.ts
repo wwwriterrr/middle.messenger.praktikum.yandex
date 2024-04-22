@@ -4,7 +4,11 @@ import { Input } from "../input"
 import isEqual from 'lodash/isEqual';
 
 
-export default class FormRegistrate extends Block {
+interface IProps {
+    error: string,
+}
+
+export default class FormRegistrate extends Block<IProps> {
     init() {
         const onSignupBind = this.onSignup.bind(this);
         const onChangeFieldBind = this.onInputBlur.bind(this);
@@ -44,8 +48,8 @@ export default class FormRegistrate extends Block {
 
     onSignup() {
         const {InputPassword, InputRPassword} = this.children;
-        const errors = [];
-        const res = {};
+        const errors: any = [];
+        const res: any = {};
 
         Object.keys(this.children).map((key) => {
             const item = this.children[key];
@@ -60,7 +64,7 @@ export default class FormRegistrate extends Block {
         })
 
         if(errors.length !== 0){
-            errors.map((err) => {
+            errors.map((err: [Block<object>, string]) => {
                 err[0].setProps({error: err[1]});
             })
             return;

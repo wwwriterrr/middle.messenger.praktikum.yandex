@@ -17,16 +17,19 @@ export default class Block<Props extends object> {
     private _element: HTMLElement | null = null;
     public id = nanoid(6);
     private _meta = null;
-    public _id = nanoid(6);
+    private _id = nanoid(6);
     protected props: Props;
     //protected refs: Refs = {} as Refs;
-    //public children: Block<object>[] = [];
-    public children: any = [];
+    protected children: Block<object>[] = [];
     private eventBus: () => EventBus;
     //private _eventbus;
 
     constructor(propsWithChildren = {}) {
         const eventBus = new EventBus();
+        // this._meta = {
+        //   tagName,
+        //   props
+        // };
         const {props, children} = this._getChildrenAndProps(propsWithChildren);
         this.props = this._makePropsProxy({ ...props });
         this.children = children;
@@ -36,6 +39,16 @@ export default class Block<Props extends object> {
         this._registerEvents(eventBus);
 
         eventBus.emit(Block.EVENTS.INIT);
+
+        //this._timeout = null;
+    }
+
+    _propsObject() {
+        const res = {el: this._element};
+        Object.keys(this.props).map((propKey) => {
+            res[propKey] = this.props[propKey];
+        })
+        return res;
     }
 
     _addEvents() {
@@ -54,10 +67,10 @@ export default class Block<Props extends object> {
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
     }
 
-    /*_createResources() {
+    _createResources() {
         const { tagName } = this._meta;
         this._element = this._createDocumentElement(tagName);
-    }*/
+    }
 
     _init() {
         // this._createResources();
@@ -125,8 +138,8 @@ export default class Block<Props extends object> {
     }
 
     _getChildrenAndProps(propsAndChildren) {
-        const children: any = {};
-        const props: any = {};
+        const children = {};
+        const props = {};
 
         Object.entries(propsAndChildren).forEach(([key, value]) => {
         if (value instanceof Block) {
@@ -179,6 +192,48 @@ export default class Block<Props extends object> {
     }
 
     render() {}
+
+    /*private _render() {
+        const fragment = this.compile(this.render(), this.props);
+
+        const newElement = fragment.firstElementChild as HTMLElement;
+
+        if (this._element) {
+            this._element.replaceWith(newElement);
+        }
+
+        this._element = newElement;
+
+        this._addEvents();
+    }
+
+    private compile(template: string, context: any) {
+        const contextAndStubs = {...context, __refs: this.refs};
+
+        Object.entries(this.children).forEach(([key, child]) => {
+            contextAndStubs[key] = `<div data-id="${child.id}"></div>`;
+        })
+
+        const html = Handlebars.compile(template)(contextAndStubs);
+
+        const temp = document.createElement('template');
+
+        temp.innerHTML = html;
+        contextAndStubs.__children?.forEach(({embed}: any) => {
+            embed(temp.content);
+        });
+
+        Object.values(this.children).forEach((child) => {
+            const stub = temp.content.querySelector(`[data-id="${child.id}"]`);
+            stub?.replaceWith(child.getContent()!);
+        })
+
+        return temp.content;
+    }
+
+    protected render(): string {
+        return '';
+    }*/
 
     getContent() {
         if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {

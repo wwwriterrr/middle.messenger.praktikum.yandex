@@ -1,9 +1,12 @@
 import { FormLogin, FormWrapper } from "../../components"
 import Block from "../../core/Block"
-import isEqual from 'lodash/isEqual';
 
 
-export default class LoginPage extends Block {
+interface IProps{
+    FormLogin: Block<object>
+}
+
+export default class LoginPage extends Block<IProps> {
     constructor(props: any) {
         /*const inputComponents = props.inputs.reduce((acc, data) => {
             const component = new Input({label: data});
@@ -22,15 +25,6 @@ export default class LoginPage extends Block {
             //inputComponentKeys: Object.keys(inputComponents),
             //...inputComponents
         })
-    }
-
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
-        if(isEqual(oldProps, newProps)){
-            return false;
-        }
-
-        console.log('Change Login page props');
-        return true;
     }
 
     render() {

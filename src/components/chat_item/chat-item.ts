@@ -1,8 +1,12 @@
 import Block from "../../core/Block";
 
 
-export default class ChatItem extends Block{
-    constructor(props) {
+interface IProps{
+    item: any,
+}
+
+export default class ChatItem extends Block<IProps>{
+    constructor(props: IProps) {
         super(props);
     }
 

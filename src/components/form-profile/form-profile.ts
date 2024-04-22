@@ -91,7 +91,7 @@ export default class FormLogin extends Block {
             const element = this.children[key];
             if(element.props.name){
                 try{
-                    Validator(element.props.value, name=element.props.name);
+                    Validator(element.props.value, element.props.name);
                     res[element.props.name] = element.props.value;
                 }catch (err){
                     errors.push([element, err.message]);

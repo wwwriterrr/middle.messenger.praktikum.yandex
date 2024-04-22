@@ -2,9 +2,15 @@ import Block from "../../core/Block";
 import ChatItem from "../chat_item/chat-item";
 
 
-export default class ChatsList extends Block{
-    constructor(props) {
-        const ChatComponents = props.chats.reduce((acc, data) => {
+interface IProps{
+    ChatComponentsKeys?: [string],
+    ChatComponents?: Block<object>[],
+    chats: any
+}
+
+export default class ChatsList extends Block<IProps>{
+    constructor(props: IProps) {
+        const ChatComponents = props.chats.reduce((acc: { [key: string]: Block<object> }, data: {}) => {
             const component = new ChatItem({item: data});
             acc[component._id] = component;
             return acc;
@@ -20,7 +26,7 @@ export default class ChatsList extends Block{
     render() {
         return `
             <div class="chats-list">
-                ${this.props.ChatComponentsKeys.map((key) => `{{{ ${key} }}}`).join('')}
+                ${this.props.ChatComponentsKeys && this.props.ChatComponentsKeys.map((key: string) => `{{{ ${key} }}}`).join('')}
             </div>
         `
     }

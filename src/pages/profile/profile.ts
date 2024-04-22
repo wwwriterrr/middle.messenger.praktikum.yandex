@@ -3,8 +3,14 @@ import { FormProfile, ModalWrap, ModalAvatar, AvatarButton } from "../../compone
 import isEqual from 'lodash/isEqual';
 
 
-export default class ProfilePage extends Block{
-    constructor(props) {
+interface IProps {
+    avatar?: string,
+    FormProfile: Block<object>[],
+    Modal?: Block<object>[]
+}
+
+export default class ProfilePage extends Block<IProps>{
+    constructor(props: IProps) {
         super({
             ...props,
             FormProfile: new FormProfile({}),
@@ -36,9 +42,8 @@ export default class ProfilePage extends Block{
         return true;
     }
 
-    onClickAvButton(e){
+    onClickAvButton(){
         this.children.Modal.setProps({modalVisible: true});
-        //this.children.AvatarModal.setProps({modalVisible: true});
     }
 
     render() {

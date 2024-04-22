@@ -1,8 +1,19 @@
 import Block from "../../core/Block";
-import isEqual from 'lodash/isEqual';
 
-class Button extends Block {
-    constructor(props: any) {
+
+interface IProps {
+    type?: string,
+    label?: string,
+    isLoading?: boolean,
+    classes?: string,
+    page?: string,
+    style?: string,
+    mode?: string,
+    onClick?: () => void
+}
+
+class Button extends Block<IProps> {
+    constructor(props: IProps) {
         super({
             ...props,
             events: {
@@ -11,15 +22,6 @@ class Button extends Block {
             classes: props.classes,
             isLoading: props.isLoading,
         })
-    }
-
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
-        if(isEqual(oldProps, newProps)) {
-            return false;
-        }
-
-        console.log('Change Button props');
-        return true;
     }
 
     render(): string {

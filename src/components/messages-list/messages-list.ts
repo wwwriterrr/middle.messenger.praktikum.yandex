@@ -2,9 +2,15 @@ import Block from "../../core/Block";
 import ChatMessage from "../chat-message/message";
 
 
-export default class MessagesList extends Block{
-    constructor(props) {
-        const MessageComponents = props.messages.reduce((acc, data) => {
+interface IProps{
+    messages: Object[],
+    attach?: Object[],
+    MessageComponentsKeys?: [string]
+}
+
+export default class MessagesList extends Block<IProps>{
+    constructor(props: IProps) {
+        const MessageComponents = props.messages.reduce((acc: any, data: any) => {
             const component = new ChatMessage({message: data, attach: data.attach});
             acc[component._id] = component;
             return acc;
@@ -20,7 +26,7 @@ export default class MessagesList extends Block{
     render() {
         return `
             <div class="chat__messages">
-                ${this.props.MessageComponentsKeys.map((key) => `{{{ ${key} }}}`).join('')}
+                ${this.props.MessageComponentsKeys && this.props.MessageComponentsKeys.map((key: string) => `{{{ ${key} }}}`).join('')}
             </div>
         `
     }

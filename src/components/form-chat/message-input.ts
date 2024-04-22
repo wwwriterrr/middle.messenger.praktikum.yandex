@@ -1,8 +1,18 @@
 import Block from "../../core/Block";
 
 
-export default class MessageInput extends Block{
-    constructor(props) {
+interface IProps{
+    onBlur?: () => void,
+    onInput?: () => void,
+    classes?: string,
+    type?: string,
+    name: string,
+    placeholder?: string,
+    value?: string
+}
+
+export default class MessageInput extends Block <IProps>{
+    constructor(props: IProps) {
         super({
             ...props,
             events: {

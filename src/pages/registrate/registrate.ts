@@ -1,7 +1,12 @@
 import { FormRegistrate, FormWrapper } from "../../components"
 import Block from "../../core/Block"
 
-export default class RegistratePage extends Block {
+
+interface IProps {
+    FormLogin: Block<any>,
+}
+
+export default class RegistratePage extends Block<IProps> {
     constructor(props: any) {
         super({
             ...props,

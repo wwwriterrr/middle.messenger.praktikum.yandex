@@ -1,16 +1,22 @@
 import Block from "../../core/Block"
 import { Button } from "../button"
 import { Input } from "../input"
-import isEqual from 'lodash/isEqual';
 
 
-export default class FormLogin extends Block {
+interface IProps{
+    error: string,
+    InputLogin: Block<object>,
+    InputPassword: Block<object>,
+    ButtonRemember: Block<object>,
+    ButtonLogin: Block<object>,
+    ButtonSignup: Block<object>,
+}
+
+export default class FormLogin extends Block<IProps> {
     init() {
         const onChangeLoginBind = this.onInputBlur.bind(this);
         const onChangePasswordBind = this.onInputBlur.bind(this);
         const onLoginBind = this.onLogin.bind(this);
-
-        //{{> Button label="I don't remember the password" type="link" classes="button_nopasswd button_nofill button-greytext button_normweight" page="Remember password" }}
 
         const InputLogin = new Input({label: 'Login', type: 'text', name: 'login', value: '', error: null, classes: '', onBlur: onChangeLoginBind});
         const InputPassword = new Input({label: 'Password', type: 'password', name: 'password', value: '', error: null, classes: '', onBlur: onChangePasswordBind});
@@ -26,15 +32,6 @@ export default class FormLogin extends Block {
             ButtonLogin,
             ButtonSignup
         }
-    }
-
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
-        if(isEqual(oldProps, newProps)) {
-            return false;
-        }
-
-        console.log('Change Form Login props');
-        return true;
     }
 
     onLogin() {

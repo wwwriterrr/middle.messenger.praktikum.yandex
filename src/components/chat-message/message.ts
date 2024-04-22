@@ -2,10 +2,17 @@ import Block from "../../core/Block";
 import Attach from "./attach-component";
 
 
-export default class ChatMessage extends Block{
-    constructor(props) {
+interface IProps{
+    message: any,
+    attach: any,
+    AttachComponentsKeys?: [string]
+}
+
+export default class ChatMessage extends Block<IProps>{
+    constructor(props: IProps) {
         if(props.attach.length != 0){
-            const AttachComponents = props.attach.reduce((acc, data) => {
+            const AttachComponents = props.attach.reduce((acc: { [key: string]: Block<object> }, data: string) => {
+                console.log(acc, data);
                 const component = new Attach({attach: data});
                 acc[component._id] = component;
                 return acc;

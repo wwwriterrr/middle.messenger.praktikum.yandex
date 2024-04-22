@@ -3,12 +3,17 @@ import { Button } from "../button"
 import { Input } from "../input"
 
 
-export default class FormRemember extends Block{
-    constructor(props) {
+interface IProps{
+    InputEmail?: Block<object>,
+    ButtonSubmit?: Block<object>
+}
+
+export default class FormRemember extends Block<IProps>{
+    constructor(props: IProps) {
         super({
             ...props,
             events: {
-                submit: (e) => { e.preventDefault();e.stopImmediatePropagation(); }
+                submit: (e: Event) => { e.preventDefault();e.stopImmediatePropagation(); }
             }
         });
     }

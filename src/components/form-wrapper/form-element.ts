@@ -1,7 +1,13 @@
 import Block from "../../core/Block";
 
 
-class FormElement extends Block {
+interface IProps{
+    classes?: string,
+    title: string,
+    formBody: Block<object>
+}
+
+class FormElement extends Block<IProps> {
     constructor(props: any) {
         super(props);
     }

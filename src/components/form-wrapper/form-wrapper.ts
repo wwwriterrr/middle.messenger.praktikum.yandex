@@ -1,17 +1,23 @@
 import Block from "../../core/Block";
 import FormElement from "./form-element";
-import isEqual from 'lodash/isEqual';
 
 
-export default class FormWrapper extends Block {
-    constructor(props: any) {
+interface IProps{
+    FormElement?: Block<object>,
+    title?: string,
+    formBody?: Block<object>,
+    classes?: string,
+}
+
+export default class FormWrapper extends Block<IProps> {
+    constructor(props: IProps) {
         super({
             ...props,
             FormElement: new FormElement({
                 title: props.title,
                 formBody: props.formBody,
                 classes: props.classes,
-                events: {submit: (e) =>
+                events: {submit: (e: Event) =>
                     {
                         e.preventDefault();
                         e.stopImmediatePropagation();
@@ -19,15 +25,6 @@ export default class FormWrapper extends Block {
                 }
             })
         });
-    }
-
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
-        if(isEqual(oldProps, newProps)) {
-            return false;
-        }
-
-        console.log('Change Form Wrapper props');
-        return true;
     }
 
     render() {

@@ -1,14 +1,17 @@
 import Block from "../../core/Block";
-import isEqual from 'lodash/isEqual';
 import Button from "../button/button";
 
 
-export default class ModalAvatar extends Block{
-    constructor(props) {
+interface IProps{
+    ButtonSave?: Block<object>
+}
+
+export default class ModalAvatar extends Block<IProps>{
+    constructor(props: IProps) {
         super({
             ...props,
             events: {
-                submit: (e) => { e.preventDefault();e.stopImmediatePropagation(); }
+                submit: (e: Event) => { e.preventDefault();e.stopImmediatePropagation(); }
             }
         });
     }
@@ -24,16 +27,7 @@ export default class ModalAvatar extends Block{
         }
     }
 
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
-        if(isEqual(oldProps, newProps)) {
-            return false;
-        }
-
-        console.log('Change Modal Avatar props');
-        return true;
-    }
-
-    onSaveAvatar(e){
+    onSaveAvatar(){
         console.log('save avatar');
     }
 

@@ -1,10 +1,7 @@
 import Block from "../../core/Block"
 
 
-export default class RememberPage extends Block{
-    constructor(props) {
-        super(props);
-    }
+export default class RememberPage extends Block<any>{
 
     render() {
         return `

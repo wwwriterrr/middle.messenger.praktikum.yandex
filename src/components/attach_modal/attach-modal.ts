@@ -2,8 +2,14 @@ import Block from "../../core/Block";
 import Button from "../button/button";
 
 
-export default class AttachModal extends Block{
-    constructor(props) {
+interface IProps{
+    ButtonPhoto: Block<object>,
+    ButtonFile: Block<object>,
+    ButtonLocation: Block<object>,
+}
+
+export default class AttachModal extends Block<IProps>{
+    constructor(props: IProps) {
         super(props);
     }
 

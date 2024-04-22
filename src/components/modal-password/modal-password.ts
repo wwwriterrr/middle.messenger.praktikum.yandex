@@ -1,15 +1,22 @@
 import Block from "../../core/Block";
 import Input from "../input/input-element";
 import Button from "../button/button";
-import isEqual from 'lodash/isEqual';
 
 
-export default class ModalPassword extends Block{
-    constructor(props) {
+interface IProps{
+    InputOldPasswd?: Block<object>,
+    InputNewPasswd?: Block<object>,
+    InputRtPasswd?: Block<object>,
+    ButtonRemember?: Block<object>,
+    ButtonSubmit?: Block<object>,
+}
+
+export default class ModalPassword extends Block<IProps>{
+    constructor(props: IProps) {
         super({
             ...props,
             events: {
-                submit: (e) => { e.preventDefault();e.stopImmediatePropagation(); },
+                submit: (e: Event) => { e.preventDefault();e.stopImmediatePropagation(); },
             }
         });
     }
@@ -34,18 +41,9 @@ export default class ModalPassword extends Block{
         }
     }
 
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
-        if(isEqual(oldProps, newProps)) {
-            return false;
-        }
-
-        console.log('Change Modal Password props');
-        return true;
-    }
-
     onSubmit(){
         const {InputOldPasswd, InputNewPasswd, InputRtPasswd} = this.children;
-        const errors = [];
+        const errors: any = [];
 
         [InputOldPasswd, InputNewPasswd, InputRtPasswd].map((input) => {
             if(!input.props.value) errors.push([input, 'Field cannot be empty']);
@@ -53,7 +51,7 @@ export default class ModalPassword extends Block{
         })
 
         if(errors.length !== 0){
-            errors.map((err) => {
+            errors.map((err: [Block<object>, string]) => {
                 err[0].setProps({error: err[1]});
             })
             return false;

@@ -1,19 +1,15 @@
 import Block from "../../core/Block";
-import isEqual from 'lodash/isEqual';
 
 
-class ProfileInput extends Block{
-    constructor(props: {}) {
+interface IProps{
+    type: string,
+    name: string,
+    value: string
+}
+
+class ProfileInput extends Block<IProps>{
+    constructor(props: IProps) {
         super(props)
-    }
-
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
-        if(isEqual(oldProps, newProps)) {
-            return false;
-        }
-
-        console.log('Change Profile Input props');
-        return true;
     }
 
     render(): string {

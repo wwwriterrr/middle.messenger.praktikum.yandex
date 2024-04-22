@@ -1,8 +1,14 @@
 import Block from "../../core/Block";
 
 
-export default class ChatButton extends Block{
-    constructor(props) {
+interface IProps{
+    classes?: string,
+    type: string,
+    onClick?: () => void
+}
+
+export default class ChatButton extends Block<IProps>{
+    constructor(props: IProps) {
         super({
             ...props,
             events: {

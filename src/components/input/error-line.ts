@@ -1,19 +1,14 @@
 import Block from "../../core/Block";
-import isEqual from 'lodash/isEqual';
 
 
-class ErrorLine extends Block {
-    constructor(props: {}) {
+interface IProps{
+    errorClasses?: string,
+    error?: string
+}
+
+class ErrorLine extends Block<IProps> {
+    constructor(props: IProps) {
         super(props);
-    }
-
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
-        if(isEqual(oldProps, newProps)) {
-            return false;
-        }
-
-        console.log('Change Error Line props');
-        return true;
     }
 
     render(): string {

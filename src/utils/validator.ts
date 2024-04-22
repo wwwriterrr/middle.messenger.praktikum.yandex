@@ -39,7 +39,6 @@ const Validator = (value: string, name='login') => {
         const minLength = 8;
         const maxLength = 40;
         if(value.length < 8 || value.length > 40) throw new Error(`The field cannot be shorter than ${minLength} characters and longer than ${maxLength} characters`);
-        const pattern = /^[a-z|0-9]$/i
         if(!/[0-9]/.test(value)) throw new Error(`The field must contain at least one digit`);
         if(!/[A-Z]/.test(value)) throw new Error(`The field must contain at least one capital letter`);
     }

@@ -4,7 +4,14 @@ import ProfileInput from "./input";
 import ProfileErrorLine from "./error_line";
 
 
-class ProfileRow extends Block{
+interface IProps{
+    ProfileInput: Block<object>,
+    ErrorLine: Block<object>,
+    error?: string,
+    label: string
+}
+
+class ProfileRow extends Block<IProps>{
     constructor(props: any) {
         super({
             ...props,
