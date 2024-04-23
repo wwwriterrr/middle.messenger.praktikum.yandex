@@ -11,15 +11,23 @@ enum METHOD {
 type Options = {
     method: METHOD;
     data?: any;
-    timeout?: number,
 };
 
+type OptionsWithoutMethod = Omit<Options, 'method'>;
 
 export class HTTPTransportOld {
     private apiUrl: string = ''
     constructor(apiPath: string) {
         this.apiUrl = `${HOST}${apiPath}`;
     }
+
+    get<TResponse>(url: string, options: OptionsWithoutMethod = {}): Promise<TResponse> {
+        return this.request<TResponse>(`${this.apiUrl}${url}`, {...options, method: METHOD.GET});
+    };
+
+    post<TResponse>(url: string, options: OptionsWithoutMethod = {}): Promise<TResponse> {
+        return this.request<TResponse>(`${this.apiUrl}${url}`, {...options, method: METHOD.POST});
+    };
 
     async request<TResponse>(url: string, options: Options = { method: METHOD.GET }): Promise<TResponse> {
         const {method, data} = options;
@@ -37,20 +45,4 @@ export class HTTPTransportOld {
 
         return resultData as unknown as TResponse;
     };
-
-    get<TResponse>(url: string, options: Options = { method: METHOD.GET }): Promise<TResponse> {
-        return this.request(`${this.apiUrl}${url}`, {...options, method: METHOD.GET})
-    }
-
-    put<TResponse>(url: string, options: Options = { method: METHOD.GET }): Promise<TResponse> {
-        return this.request(`${this.apiUrl}${url}`, {...options, method: METHOD.PUT})
-    }
-
-    post<TResponse>(url: string, options: Options = { method: METHOD.GET }): Promise<TResponse> {
-        return this.request(`${this.apiUrl}${url}`, {...options, method: METHOD.POST})
-    }
-
-    delete<TResponse>(url: string, options: Options = { method: METHOD.GET }): Promise<TResponse> {
-        return this.request(`${this.apiUrl}${url}`, {...options, method: METHOD.DELETE})
-    }
 }

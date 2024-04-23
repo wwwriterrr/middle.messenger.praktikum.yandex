@@ -42,7 +42,16 @@ export default class Block<Props extends object> {
         const {events = {}} = this.props;
 
         Object.keys(events).forEach(eventName => {
-          this._element.addEventListener(eventName, events[eventName]);
+            //console.log('add event', eventName);
+            this._element.addEventListener(eventName, events[eventName]);
+        })
+    }
+
+    _removeEvents() {
+        const {events = {}} = this.props;
+        Object.keys(events).forEach(eventName => {
+            //console.log('remove event', eventName);
+            this._element.removeEventListener(eventName, events[eventName]);
         })
     }
 
@@ -96,6 +105,7 @@ export default class Block<Props extends object> {
     }
 
     _componentWillUnmount() {
+        this._removeEvents();
         this.componentWillUnmount();
     }
 
@@ -116,6 +126,7 @@ export default class Block<Props extends object> {
 
         this._render();*/
         if (this.componentDidUpdate(oldProps, newProps)) {
+            this._removeEvents();
             this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
         }
     }
