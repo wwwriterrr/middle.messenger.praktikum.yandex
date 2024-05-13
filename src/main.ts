@@ -7,6 +7,15 @@ import Router from './core/Router';
 import { Store } from './core/Store';
 
 
+Handlebars.registerHelper('if_eq', function(a, b, opts) {
+    const t: any = this
+    if (a == b) {
+        return opts.fn(t)
+    } else {
+        return opts.inverse(t)
+    }
+});
+
 declare global {
     export type Keys<T extends Record<string, unknown>> = keyof T;
     export type Values<T extends Record<string, unknown>> = T[Keys<T>];
