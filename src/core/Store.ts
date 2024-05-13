@@ -8,7 +8,7 @@ export class Store extends EventBus {
     private state: any = {};
 
     constructor(defaultState: any) {
-        if (Store.__instance)
+        if(Store.__instance){
             return Store.__instance;
         }
         super();
