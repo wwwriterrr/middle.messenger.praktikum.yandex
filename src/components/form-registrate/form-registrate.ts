@@ -21,7 +21,7 @@ export default class FormRegistrate extends Block<IProps> {
         const InputPassword = new Input({label: 'Password', type: 'password', name: 'password', value: '', error: null, classes: '', onBlur: onChangeFieldBind});
         const InputRPassword = new Input({label: 'Retype password', type: 'password', name: 'retype-password', value: '', error: null, classes: '', onBlur: onChangeFieldBind});
         const ButtonSignup = new Button({label: 'Sign Up', type: 'primary', mode: 'action', onClick: onSignupBind});
-        const ButtonSignin = new Button({label: 'Sign In', type: 'link', page: 'login'});
+        const ButtonSignin = new Button({label: 'Sign In', type: 'link', page: 'login', onClick: () => { window.router.go('/login'); }});
 
         this.children = {
             ...this.children,

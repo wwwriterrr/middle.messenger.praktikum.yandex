@@ -38,11 +38,12 @@ window.store = new Store({
 
 
 router
+    .use('/', Pages.LoginPage)
     .use('/login', Pages.LoginPage)
-    .use('/registrate', Pages.RegistratePage)
-    .use('/profile', Pages.ProfilePage)
-    .use('/chat', Pages.ChatPage)
-    .use('/remember_password', Pages.RememberPassword)
-    .use('/remember_password_auth', Pages.RememberPassword)
+    .use('/sign-up', Pages.RegistratePage)
+    .use('/settings', Pages.ProfilePage)
+    .use('/messenger', Pages.ChatPage)
+    .use('/remember-password', Pages.RememberPassword)
+    .use('/remember-password-auth', Pages.RememberPassword)
     .use('*', Pages.ErrorPage)
     .start();

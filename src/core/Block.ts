@@ -258,11 +258,11 @@ export default class Block<Props extends object> {
         return document.createElement(tagName);
     }
 
-    /*show() {
+    show() {
         this.getContent().style.display = "block";
     }
 
     hide() {
         this.getContent().style.display = "none";
-    }*/
+    }
 }

@@ -20,17 +20,16 @@ export function connect(mapStateToProps, dispatch?) {
                 this.setProps({...dispatchHundler});
 
                 this.onChangeStoreCallback = () => {
+                    // при обновлении получаем новое состояние
+                    const newState = mapStateToProps(store.getState());
 
-                // при обновлении получаем новое состояние
-                const newState = mapStateToProps(store.getState());
+                    // если что-то из используемых данных поменялось, обновляем компонент
+                    if (!isEqual(state, newState)) {
+                        this.setProps({...newState});
+                    }
 
-                // если что-то из используемых данных поменялось, обновляем компонент
-                if (!isEqual(state, newState)) {
-                    this.setProps({...newState});
-                }
-
-                // не забываем сохранить новое состояние
-                state = newState;
+                    // не забываем сохранить новое состояние
+                    state = newState;
                 }
 
                 // подписываемся на событие

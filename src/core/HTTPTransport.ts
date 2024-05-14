@@ -15,7 +15,7 @@ type Options = {
 };
 
 
-export class HTTPTransportOld {
+export class HTTPTransport {
     private apiUrl: string = ''
     constructor(apiPath: string) {
         this.apiUrl = `${HOST}${apiPath}`;
