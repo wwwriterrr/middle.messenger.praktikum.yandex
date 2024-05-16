@@ -7,6 +7,9 @@
     grid-column-end: span 2;margin: 0 0 10px 0;text-align: center;
     &_normweight{font-weight: 400;}
 }
+.form__error{
+    grid-column-end: span 2;margin: 0 0 14px 0;color: red;font-weight: 400;
+}
 .form__login{
     .input{grid-column-end: span 2;}
 }

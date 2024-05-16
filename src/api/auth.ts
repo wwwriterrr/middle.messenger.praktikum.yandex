@@ -15,11 +15,12 @@ const delay = (showError) => new Promise((resolve, reject) => {
 export default class AuthApi {
     async create(data: CreateUser): Promise<SignUpResponse> {
         return authApi.post<SignUpResponse>('/signup', {data})
+        // return await delay(data.login === 'httperror');
     }
 
     async login(data: LoginRequestData): Promise<void | APIError> {
-        // return authApi.post('/signin', {data});
-        return await delay(data.login === 'httperror')
+        return authApi.post('/signin', {data});
+        // return await delay(data.login === 'httperror')
     }
 
     async me(): Promise<UserDTO | APIError> {

@@ -2,13 +2,15 @@ import Block from "../../core/Block"
 import { Button } from "../button"
 import { Input } from "../input"
 import isEqual from 'lodash/isEqual';
+import { signup } from "../../services/auth";
+import { connect } from "../../utils/connect";
 
 
 interface IProps {
     error: string,
 }
 
-export default class FormRegistrate extends Block<IProps> {
+class FormRegistrate extends Block<IProps> {
     init() {
         const onSignupBind = this.onSignup.bind(this);
         const onChangeFieldBind = this.onInputBlur.bind(this);
@@ -78,22 +80,33 @@ export default class FormRegistrate extends Block<IProps> {
 
         console.log('submit', res);
 
-        return;
+        signup(res);
     }
 
     render() {
         return (`
             <div class="form__signup-wrap {{#if error}}form__signup-wrap_error{{/if}}">
-                {{{ InputLogin }}}
-                {{{ InputEmail }}}
-                {{{ InputPhone }}}
-                {{{ InputFName }}}
-                {{{ InputLName }}}
-                {{{ InputPassword }}}
-                {{{ InputRPassword }}}
-                {{{ ButtonSignup }}}
-                {{{ ButtonSignin }}}
+                {{#if isLoading}}
+                    <div>Fetching...</div>
+                {{else}}
+                    {{#if signupError}}
+                        <div class="form__error">{{ signupError }}</div>
+                    {{/if}}
+                    {{{ InputLogin }}}
+                    {{{ InputEmail }}}
+                    {{{ InputPhone }}}
+                    {{{ InputFName }}}
+                    {{{ InputLName }}}
+                    {{{ InputPassword }}}
+                    {{{ InputRPassword }}}
+                    {{{ ButtonSignup }}}
+                    {{{ ButtonSignin }}}
+                {{/if}}
             </div>
         `)
     }
 }
+
+const mapStateToPropsShort = ({signupField, isLoading, signupError}) => ({signupField, isLoading, signupError})
+
+export default connect(mapStateToPropsShort)(FormRegistrate)

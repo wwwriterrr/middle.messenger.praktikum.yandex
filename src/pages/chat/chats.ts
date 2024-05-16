@@ -1,5 +1,6 @@
 import Block from "../../core/Block";
 import { Button, ChatsList, MessagesList, ChatForm } from "../../components";
+import { is_authenticated } from "../../services/auth";
 
 
 interface IProps{
@@ -10,7 +11,7 @@ interface IProps{
 }
 
 export default class ChatPage extends Block<IProps>{
-    init(){
+    async init(){
         const chats = [
             {id: 1, avatar: '/public/av1.jpg', name: 'Batman', msg: 'Stuff sooner subjects indulgence forty child theirs unpleasing supported projecting certain.', date: '12:10', count: 4},
             {id: 2, avatar: '/public/av2.jpg', name: 'Robin', msg: 'Up above afford furniture worse. Them dine position warrant expense he.', date: 'yda'},
@@ -61,6 +62,12 @@ export default class ChatPage extends Block<IProps>{
                 msgs[msgs.length-1].scrollIntoView({block: "center",});
             }
         }, 100)
+
+        // Check user
+        const is_auth = await is_authenticated();
+        if(!is_auth){
+            window.router.go('/login');
+        }
     }
 
     render() {

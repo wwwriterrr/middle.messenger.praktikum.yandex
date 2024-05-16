@@ -31,9 +31,8 @@ window.router = router;
 window.store = new Store({
     isLoading: false,
     loginError: null,
-    cats: [],
     user: null,
-    selectedCard: null
+    userData: {},
 });
 
 

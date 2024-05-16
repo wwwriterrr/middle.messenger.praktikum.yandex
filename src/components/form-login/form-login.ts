@@ -64,17 +64,20 @@ class FormLogin extends Block<IProps> {
         console.log('Submit', {login: loginValue, password: passwdValue});
         // btn.setProps({isLoading: true});
         // setTimeout(() => { btn.setProps({isLoading: null}); }, 3000);
-        login({login: '123', password: ''});
+        login({login: loginValue, password: passwdValue});
     }
 
 
 
     render() {
         return (`
-            <div class="form__login-wrap {{#if error}}form__login-wrap_error{{/if}}">
+            <div class="form__login-wrap{{#if loginError}} form__login-wrap_error{{/if}}">
                 {{#if isLoading}}
                     <div>Loading...</div>
                 {{else}}
+                    {{#if loginError}}
+                        <div class="form__error">{{ loginError }}</div>
+                    {{/if}}
                     {{{ InputLogin }}}
                     {{{ InputPassword }}}
                     {{{ ButtonRemember }}}

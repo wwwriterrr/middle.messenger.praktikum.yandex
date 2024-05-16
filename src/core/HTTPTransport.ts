@@ -1,4 +1,4 @@
-const HOST = '127.0.0.1';
+const HOST = 'https://ya-praktikum.tech/api/v2';
 
 enum METHOD {
     GET = 'GET',
@@ -32,10 +32,12 @@ export class HTTPTransport {
             body: data ? JSON.stringify(data) : null,
         });
 
-        const isJson = response.headers.get('content-type')?.includes('application/json');
-        const resultData = await isJson ? response.json() : null
+        // const isJson = response.headers.get('content-type')?.includes('application/json');
+        // const resultData = await isJson ? response.json() : null
+        //
+        // return resultData as unknown as TResponse;
 
-        return resultData as unknown as TResponse;
+        return response as unknown as TResponse;
     };
 
     get<TResponse>(url: string, options: Options = { method: METHOD.GET }): Promise<TResponse> {
