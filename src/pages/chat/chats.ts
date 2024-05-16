@@ -1,7 +1,8 @@
 import Block from "../../core/Block";
-import { Button, ChatsList, MessagesList, ChatForm } from "../../components";
+import { Button, ChatsList, MessagesList, ChatForm, ModalWrap, ModalAddChat, ChatItem } from "../../components";
 import { logout } from "../../services/auth";
 import { getChats } from "../../services/chat";
+import { connect } from "../../utils/connect";
 
 
 interface IProps{
@@ -11,19 +12,31 @@ interface IProps{
     MessageForm: Block<object>
 }
 
-export default class ChatPage extends Block<IProps>{
-    componentDidMount() {
-        getChats();
+class ChatPage extends Block<IProps>{
+    async componentDidMount() {
+        await getChats();
+        console.log('chats', window.store.getState());
+    }
+
+    constructor(props: IProps) {
+        super({
+            ...props,
+            Modal: new ModalWrap({
+                modalVisible: false,
+                modalTitle: 'Add chat',
+                modalContent: new ModalAddChat({}),
+            })
+        });
     }
 
     async init(){
-        const chats = [
+        /*const chats = [
             {id: 1, avatar: '/public/av1.jpg', name: 'Batman', msg: 'Stuff sooner subjects indulgence forty child theirs unpleasing supported projecting certain.', date: '12:10', count: 4},
             {id: 2, avatar: '/public/av2.jpg', name: 'Robin', msg: 'Up above afford furniture worse. Them dine position warrant expense he.', date: 'yda'},
             {id: 3, avatar: '/public/av3.jpg', name: 'Pacman', msg: 'Welcomed result continued remainder endeavor tastes rank quit. ', date: 'md', count: '99+'},
             {id: 4, avatar: '/public/av4.jpg', name: 'Rastaman', msg: 'Ready attention inquietude must differed.', date: '10.01 2021'},
             {id: 5, avatar: '/public/av5.jpg', name: 'Gosling', msg: 'Remark impossible indeed quitting plan appearance.', date: '21.03.2019'},
-        ]
+        ]*/
         const messages = [
             {id: 3251, sender: 'Robin', avatar: '/public/av2.jpg', msg: 'Hey there!', date: '9:32',
             attach: [
@@ -48,10 +61,13 @@ export default class ChatPage extends Block<IProps>{
         ]
 
         const onLogoutBind = this.onLogout.bind(this);
+        const onChatClickBind = this.onChatClick.bind(this);
 
         const ButtonProfile = new Button({label: 'Profile', classes: 'button_nofill button-greytext button-prof-left', page: 'profile', onClick: () => { window.router.go('/settings'); }});
         const ButtonLogout = new Button({label: 'Log Out', classes: 'button_nofill button_logout', onClick: onLogoutBind});
-        const Chats = new ChatsList({chats: chats});
+        const ButtonAddChat = new Button({label: 'Add chat', classes: 'button_nofill button_greytext', onClick: () => {this.children.Modal.setProps({modalVisible: true});}});
+        //const Chats = new ChatsList({chats: chats});
+        const Chats = new ChatsList({chats: this.mapChatsToCompoennt(this.chats, null, onChatClickBind) || []});
         const Messages = new MessagesList({messages: messages});
         const MessageForm = new ChatForm({});
 
@@ -59,6 +75,7 @@ export default class ChatPage extends Block<IProps>{
             ...this.children,
             ButtonProfile,
             ButtonLogout,
+            ButtonAddChat,
             Chats,
             Messages,
             MessageForm
@@ -72,11 +89,28 @@ export default class ChatPage extends Block<IProps>{
             }
         }, 100)
 
-        // Check user
-        // const is_auth = await is_authenticated();
-        // if(!is_auth){
-        //     window.router.go('/login');
-        // }
+    }
+
+    mapChatsToCompoennt(chats, activeId, hundler) {
+        return chats?.map(({name, logo, id}) =>  new ChatItem({name, avatar: logo, click: hundler, id, activeId}))
+    }
+
+    componentDidUpdate(oldProps: any, newProps: any): boolean {
+        const onChatClickBind = this.onChatClick.bind(this);
+        if(oldProps.chats !== newProps.chats) {
+
+            this.children.Chats.setProps({
+                chats: this.mapChatsToCompoennt(newProps.chats, null, onChatClickBind) || [],
+                showEmpty: newProps.chats.length === 0
+            })
+        }
+
+        return true;
+    }
+
+
+    onChatClick(){
+        console.log('Chat click');
     }
 
     onLogout() {
@@ -89,6 +123,7 @@ export default class ChatPage extends Block<IProps>{
         return `
             <div class="container">
                 <div class="chat-page">
+                    {{{ Modal }}}
                     <div class="chat__side">
                         <div class="chat__side-head">
                             <div class="chat__side-mng">
@@ -98,6 +133,9 @@ export default class ChatPage extends Block<IProps>{
                             <label class="chat__search-wrap">
                                 <input class="chat__search-input" type="text" placeholder="Search" >
                             </label>
+                            <div class="chat__bottom-mng">
+                                {{{ ButtonAddChat }}}
+                            </div>
                         </div>
                         {{{ Chats }}}
                     </div>
@@ -113,3 +151,5 @@ export default class ChatPage extends Block<IProps>{
         `
     }
 }
+
+export default connect(({chats, selectedChat}) => ({chats, selectChat: selectedChat}))(ChatPage)

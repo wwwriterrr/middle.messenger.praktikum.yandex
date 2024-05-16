@@ -34,6 +34,7 @@ window.store = new Store({
     loginError: null,
     user: null,
     userData: {},
+    chats: [],
 });
 
 const is_auth = is_authenticated();

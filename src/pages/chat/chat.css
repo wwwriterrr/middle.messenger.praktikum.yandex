@@ -5,7 +5,7 @@
 .chat{
     &__side{grid-area: side;position: relative; display: grid;grid-template: 'head' auto 'chats' 1fr / 100%;border-right: 1px solid var(--grey-color);}
     &__side-mng{
-        position: relative;width: 100%;display: flex;align-items: center;justify-content: space-between;gap: 4px;
+        position: relative;width: 100%;display: flex;align-items: center;justify-content: space-between;gap: 4px;padding: 0 10px;
         button:not(:last-child){
             &::after{content: '';display: block;width: 2px;height: 100%;background-color: #e3e3e3;}
         }
@@ -13,6 +13,10 @@
     &__side-head{position:relative; display: flex;flex-direction: column;align-items: flex-end;gap: 10px; padding: 20px;border-bottom: 1px solid var(--grey-color);}
     &__search-wrap{position: relative;width: 100%;}
     &__search-input{height: 40px;width: 100%;padding: 0 16px;border-radius: 20px;background-color: var(--grey-color);}
+    &__bottom-mng{
+        position: relative;width: 100%;margin: 10px 0 0 0;padding: 0 10px;
+        .button{}
+    }
     &__header{grid-area: header;position: relative;border-bottom: 1px solid var(--grey-color);}
     &__messages{grid-area: messages;position: relative;height: 100%;padding: 20px 40px 20px 40px;overflow: auto;}
     &__form-wrap{grid-area: form;position: relative;display: flex;justify-content: flex-start; border-top: 1px solid var(--grey-color);}

@@ -1,4 +1,5 @@
 import ChatsApi from "../api/chat";
+import { CreateChat } from "../api/type";
 
 
 const chatsApi = new ChatsApi();
@@ -21,5 +22,28 @@ export const getChats = async () => {
         else window.store.set({chatsError: 'Chats fetch error'});
     }finally {
         window.store.set({chatsLoading: false});
+    }
+}
+
+export const addChat = async (model: CreateChat) => {
+    window.store.set({addChatLoading: true});
+    try{
+        const response: any = await chatsApi.add_chat(model);
+
+        if(response.status !== 200){
+            const responseData = await response.json();
+            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
+            else throw new Error(`Fetch error. Already fix it.`);
+        }
+
+        const responseData = await response.json();
+
+        return responseData;
+    }catch (error) {
+        if(error) window.store.set({addChatError: error.message});
+        else window.store.set({addChatError: 'Chats fetch error'});
+        return null;
+    }finally {
+        window.store.set({addChatLoading: false});
     }
 }

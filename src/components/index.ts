@@ -19,4 +19,5 @@ export { default as FormProfile } from './form-profile';
 export { ModalWrap } from './modal-wrap';
 export { ModalAvatar } from './modal-avatar';
 export { ModalPassword } from './modal-password';
+export { ModalAddChat } from './modal-addchat';
 export { RememberPage, FormRemember } from './form-remember';
