@@ -1,7 +1,7 @@
 import Block from "../../core/Block";
 import { FormProfile, ModalWrap, ModalAvatar, AvatarButton } from "../../components";
 import isEqual from 'lodash/isEqual';
-import { is_authenticated } from "../../services/auth.ts";
+import { connect } from "../../utils/connect.ts";
 
 
 interface IProps {
@@ -10,7 +10,7 @@ interface IProps {
     Modal?: Block<object>[]
 }
 
-export default class ProfilePage extends Block<IProps>{
+class ProfilePage extends Block<IProps>{
     constructor(props: IProps) {
         super({
             ...props,
@@ -24,12 +24,13 @@ export default class ProfilePage extends Block<IProps>{
     }
 
     async init(){
-        // const is_auth = await is_authenticated();
-        // if(!is_auth){
-        //     window.router.go('/login');
-        // }
-        const { user } = window.store.getState();
-        if(!user) window.router.go('/login');
+        const { userData } = window.store.getState();
+        //if(!user) window.router.go('/login');
+
+        const userAvatar = (userData.avatar) ? `https://ya-praktikum.tech/api/v2/resources${userData.avatar}` : '/public/av1.jpg';
+        window.store.set({userAvatar: userAvatar});
+
+        this.setProps({nickname: userData.display_name, userAvatar: window.store.getState().userAvatar});
 
         const onClickAvButtonBind = this.onClickAvButton.bind(this);
 
@@ -60,13 +61,17 @@ export default class ProfilePage extends Block<IProps>{
                 {{{ Modal }}}
                 <div class="avatar__wrap">
                     <div class="avatar__element {{#unless avatar }}avatar__element_notset{{/unless}}">
-                        <img class="avatar__image" src="/public/av1.jpg" alt="User avatar">
+                        <img class="avatar__image" src="{{ userAvatar }}" alt="User avatar">
                         {{{ ButtonChangeAv }}}
                     </div>
                 </div>
-                <div class="profile__name">{{nickname}}</div>
+                <div class="profile__name">{{ nickname }}</div>
                 {{{ FormProfile }}}
             </div>
         `
     }
 }
+
+const mapStateToPropsShort = ({userAvatar, userData}) => ({userAvatar, userData})
+
+export default connect(mapStateToPropsShort)(ProfilePage)

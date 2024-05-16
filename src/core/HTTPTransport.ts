@@ -24,12 +24,19 @@ export class HTTPTransport {
     async request<TResponse>(url: string, options: Options = { method: METHOD.GET }): Promise<TResponse> {
         const {method, data} = options;
 
+        let request_data: string | FormData = '';
+        if(data instanceof FormData) request_data = data;
+        else request_data = JSON.stringify(data);
+
+        let response_headers: {'Content-Type'?: string} = { 'Content-Type': 'application/json' };
+        if(data instanceof FormData) response_headers = {};
+
         const response = await fetch(url, {
             method,
             credentials: 'include',
             mode: 'cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: data ? JSON.stringify(data) : null,
+            headers: response_headers,
+            body: request_data,
         });
 
         // const isJson = response.headers.get('content-type')?.includes('application/json');

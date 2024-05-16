@@ -7,9 +7,11 @@ import ModalWrap from "../modal-wrap/modal-wrap";
 import ModalPassword from "../modal-password/modal-password";
 import isEqual from 'lodash/isEqual';
 import Validator from "../../utils/validator";
+import { connect } from "../../utils/connect.ts";
+import { settings } from "../../services/user.ts";
 
 
-export default class FormLogin extends Block {
+class FormProfile extends Block {
     constructor(props) {
         super({
             ...props,
@@ -27,12 +29,10 @@ export default class FormLogin extends Block {
 
     init() {
         const { userData } = window.store.getState();
-        if(!userData.id){
-            console.log('No user data');
-            window.router.go('/login');
-        }else{
-            console.log('User data', userData);
-        }
+        // const { user, userData } = window.store.getState();
+        // if(!user){
+        //     window.router.go('/login');
+        // }
 
         const onChangeInputBind = this.onInputBlur.bind(this);
         const onSaveProfileBind = this.onSaveProfile.bind(this);
@@ -74,7 +74,6 @@ export default class FormLogin extends Block {
             return false;
         }
 
-        console.log('Change Form Profile props');
         return true;
     }
 
@@ -113,24 +112,37 @@ export default class FormLogin extends Block {
         }
 
         console.log('Save profile', res);
+
+        settings(res);
     }
 
     render() {
         return (`
             <form class="form form__profile profile__rows">
-                {{{ Modal }}}
-                {{{ InputEmail }}}
-                {{{ InputLogin }}}
-                {{{ InputFName }}}
-                {{{ InputLName }}}
-                {{{ InputNName }}}
-                {{{ InputPhone }}}
-                <div class="profile__manage">
-                    {{#if changed}}{{{ ButtonSave }}}{{/if}}
-                    {{{ ButtonChangePasswd }}}
-                    {{{ ButtonLogout }}}
-                </div>
+                {{#if isLoading}}
+                    <div>Saving data...</div>
+                {{else}}
+                    {{#if userError}}
+                    <div class="form__error">{{ userError }}</div>
+                    {{/if}}
+                    {{{ Modal }}}
+                    {{{ InputEmail }}}
+                    {{{ InputLogin }}}
+                    {{{ InputFName }}}
+                    {{{ InputLName }}}
+                    {{{ InputNName }}}
+                    {{{ InputPhone }}}
+                    <div class="profile__manage">
+                        {{#if changed}}{{{ ButtonSave }}}{{/if}}
+                        {{{ ButtonChangePasswd }}}
+                        {{{ ButtonLogout }}}
+                    </div>
+                {{/if}}
             </form>
         `)
     }
 }
+
+const mapStateToPropsShort = ({userField, isLoading, userError}) => ({userField, isLoading, userError})
+
+export default connect(mapStateToPropsShort)(FormProfile)

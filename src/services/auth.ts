@@ -21,7 +21,7 @@ export const login = async (model) => {
         // window.store.set({user: {id: 'test'}});
 
         // Chat redirect
-        window.router.go('/messenger');
+        await window.router.go('/messenger');
 
     } catch (error) {
         if(error) window.store.set({loginError: error.message});

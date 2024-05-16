@@ -38,8 +38,9 @@ window.store = new Store({
 
 const is_auth = is_authenticated();
 is_auth.then(() => {
+    const { user } = window.store.getState();
+
     router
-        .use('/', Pages.LoginPage)
         .use('/login', Pages.LoginPage)
         .use('/sign-up', Pages.RegistratePage)
         .use('/settings', Pages.ProfilePage)
@@ -48,6 +49,19 @@ is_auth.then(() => {
         .use('/remember-password-auth', Pages.RememberPassword)
         .use('*', Pages.ErrorPage)
         .start();
+
+    if(window.location.pathname === '/'){
+        if(user) router.go('/messenger');
+        else router.go('/login');
+    }
+
+    if(window.location.pathname === '/messenger' || window.location.pathname === '/settings'){
+        if(!user) router.go('/login');
+    }
+
+    if(window.location.pathname === '/login' || window.location.pathname === '/sign-up'){
+        if(user) router.go('/messenger');
+    }
 })
 
 // router

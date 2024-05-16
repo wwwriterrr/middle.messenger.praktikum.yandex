@@ -27,7 +27,7 @@ export default class LoginPage extends Block<IProps> {
         })
     }
 
-    render() {
+    render(): string {
         return `
             <div class="container">
                 {{{ FormLogin }}}

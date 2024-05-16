@@ -1,6 +1,7 @@
 import Block from "../../core/Block";
 import { Button, ChatsList, MessagesList, ChatForm } from "../../components";
-import { is_authenticated, logout } from "../../services/auth";
+import { logout } from "../../services/auth";
+import { getChats } from "../../services/chat";
 
 
 interface IProps{
@@ -11,10 +12,11 @@ interface IProps{
 }
 
 export default class ChatPage extends Block<IProps>{
-    async init(){
-        const { user } = window.store.getState();
-        if(!user) window.router.go('/login');
+    componentDidMount() {
+        getChats();
+    }
 
+    async init(){
         const chats = [
             {id: 1, avatar: '/public/av1.jpg', name: 'Batman', msg: 'Stuff sooner subjects indulgence forty child theirs unpleasing supported projecting certain.', date: '12:10', count: 4},
             {id: 2, avatar: '/public/av2.jpg', name: 'Robin', msg: 'Up above afford furniture worse. Them dine position warrant expense he.', date: 'yda'},
@@ -79,6 +81,7 @@ export default class ChatPage extends Block<IProps>{
 
     onLogout() {
         logout();
+        window.store.set({user: null, userData: {}});
         window.router.go('/login');
     }
 

@@ -181,6 +181,9 @@ export default class Block<Props extends object> {
         });
 
         if (this._element) {
+            console.log('old', this._element, this._element.style.display);
+            console.log('new', newElement.style.display);
+            //newElement.style.display = this._element.style.display;
             this._element.replaceWith(newElement);
         }
 

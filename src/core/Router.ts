@@ -41,6 +41,7 @@ class Router {
 
         // add code
         if (this._currentRoute && this._currentRoute !== route) {
+            console.log('current route', this._currentRoute, 'new route', route);
             this._currentRoute.leave();
         }
         //
