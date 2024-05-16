@@ -26,23 +26,31 @@ export default class FormLogin extends Block {
     }
 
     init() {
+        const { userData } = window.store.getState();
+        if(!userData.id){
+            console.log('No user data');
+            window.router.go('/login');
+        }else{
+            console.log('User data', userData);
+        }
+
         const onChangeInputBind = this.onInputBlur.bind(this);
         const onSaveProfileBind = this.onSaveProfile.bind(this);
         const onChangePasswordBind = this.onChangePassword.bind(this);
         //const onChangeFieldBind = this.onChangeField.bind(this);
 
-        const InputEmail = new ProfileRow({label: 'Email', type: 'text', name: 'email', value: 'mail@example.com',
-            oldValue: 'mail@example.com', error: null, onBlur: onChangeInputBind});
-        const InputLogin = new ProfileRow({label: 'Login', type: 'text', name: 'login', value: 'johny',
-            oldValue: 'johny', error: null, onBlur: onChangeInputBind});
-        const InputFName = new ProfileRow({label: 'First name', type: 'text', name: 'first_name', value: 'John',
-            oldValue: 'John', error: null, onBlur: onChangeInputBind});
-        const InputLName = new ProfileRow({label: 'Last name', type: 'text', name: 'second_name', value: 'Doe',
-            oldValue: 'Doe', error: null, onBlur: onChangeInputBind});
-        const InputNName = new ProfileRow({label: 'Nickname', type: 'text', name: 'display_name', value: 'Rocker',
-            oldValue: 'Rocker', error: null, onBlur: onChangeInputBind});
-        const InputPhone = new ProfileRow({label: 'Phone number', type: 'text', name: 'phone', value: '+79993456789',
-            oldValue: '+79993456789', error: null, onBlur: onChangeInputBind});
+        const InputEmail = new ProfileRow({label: 'Email', type: 'text', name: 'email', value: userData.email,
+            oldValue: userData.email, error: null, onBlur: onChangeInputBind});
+        const InputLogin = new ProfileRow({label: 'Login', type: 'text', name: 'login', value: userData.login,
+            oldValue: userData.login, error: null, onBlur: onChangeInputBind});
+        const InputFName = new ProfileRow({label: 'First name', type: 'text', name: 'first_name', value: userData.first_name,
+            oldValue: userData.first_name, error: null, onBlur: onChangeInputBind});
+        const InputLName = new ProfileRow({label: 'Last name', type: 'text', name: 'second_name', value: userData.second_name,
+            oldValue: userData.second_name, error: null, onBlur: onChangeInputBind});
+        const InputNName = new ProfileRow({label: 'Nickname', type: 'text', name: 'display_name', value: userData.display_name,
+            oldValue: userData.display_name, error: null, onBlur: onChangeInputBind});
+        const InputPhone = new ProfileRow({label: 'Phone number', type: 'text', name: 'phone', value: userData.phone,
+            oldValue: userData.phone, error: null, onBlur: onChangeInputBind});
         const ButtonSave = new Button({label: 'Save', type: 'primary', mode: 'action', onClick: onSaveProfileBind});
         const ButtonChangePasswd = new Button({label: 'Change password', classes: 'button_nofill', onClick: onChangePasswordBind});
         const ButtonLogout = new Button({label: 'Log out', classes: 'button_nofill button_red', type: 'link', page: 'Nav'});

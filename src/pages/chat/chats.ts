@@ -1,6 +1,6 @@
 import Block from "../../core/Block";
 import { Button, ChatsList, MessagesList, ChatForm } from "../../components";
-import { is_authenticated } from "../../services/auth";
+import { is_authenticated, logout } from "../../services/auth";
 
 
 interface IProps{
@@ -12,6 +12,9 @@ interface IProps{
 
 export default class ChatPage extends Block<IProps>{
     async init(){
+        const { user } = window.store.getState();
+        if(!user) window.router.go('/login');
+
         const chats = [
             {id: 1, avatar: '/public/av1.jpg', name: 'Batman', msg: 'Stuff sooner subjects indulgence forty child theirs unpleasing supported projecting certain.', date: '12:10', count: 4},
             {id: 2, avatar: '/public/av2.jpg', name: 'Robin', msg: 'Up above afford furniture worse. Them dine position warrant expense he.', date: 'yda'},
@@ -42,7 +45,10 @@ export default class ChatPage extends Block<IProps>{
             {id: 3255, sender: 'Robin', avatar: '/public/av2.jpg', msg: 'Stuff sooner subjects indulgence forty child theirs unpleasing supported projecting certain.', date: '12:10', attach: []},
         ]
 
-        const ButtonProfile = new Button({label: 'Profile', classes: 'button_nofill button-greytext button-prof-left', page: 'profile'})
+        const onLogoutBind = this.onLogout.bind(this);
+
+        const ButtonProfile = new Button({label: 'Profile', classes: 'button_nofill button-greytext button-prof-left', page: 'profile', onClick: () => { window.router.go('/settings'); }});
+        const ButtonLogout = new Button({label: 'Log Out', classes: 'button_nofill button_logout', onClick: onLogoutBind});
         const Chats = new ChatsList({chats: chats});
         const Messages = new MessagesList({messages: messages});
         const MessageForm = new ChatForm({});
@@ -50,6 +56,7 @@ export default class ChatPage extends Block<IProps>{
         this.children = {
             ...this.children,
             ButtonProfile,
+            ButtonLogout,
             Chats,
             Messages,
             MessageForm
@@ -64,30 +71,40 @@ export default class ChatPage extends Block<IProps>{
         }, 100)
 
         // Check user
-        const is_auth = await is_authenticated();
-        if(!is_auth){
-            window.router.go('/login');
-        }
+        // const is_auth = await is_authenticated();
+        // if(!is_auth){
+        //     window.router.go('/login');
+        // }
+    }
+
+    onLogout() {
+        logout();
+        window.router.go('/login');
     }
 
     render() {
         return `
-            <div class="chat-page">
-                <div class="chat__side">
-                    <div class="chat__side-head">
-                        {{{ ButtonProfile }}}
-                        <label class="chat__search-wrap">
-                            <input class="chat__search-input" type="text" placeholder="Search" >
-                        </label>
+            <div class="container">
+                <div class="chat-page">
+                    <div class="chat__side">
+                        <div class="chat__side-head">
+                            <div class="chat__side-mng">
+                                {{{ ButtonProfile }}}
+                                {{{ ButtonLogout }}}
+                            </div>
+                            <label class="chat__search-wrap">
+                                <input class="chat__search-input" type="text" placeholder="Search" >
+                            </label>
+                        </div>
+                        {{{ Chats }}}
                     </div>
-                    {{{ Chats }}}
-                </div>
-                <div class="chat__header">
-                    <!-- Chat info there -->
-                </div>
-                {{{ Messages }}}
-                <div class="chat__form-wrap">
-                    {{{ MessageForm }}}
+                    <div class="chat__header">
+                        <!-- Chat info there -->
+                    </div>
+                    {{{ Messages }}}
+                    <div class="chat__form-wrap">
+                        {{{ MessageForm }}}
+                    </div>
                 </div>
             </div>
         `

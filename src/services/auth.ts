@@ -79,3 +79,8 @@ export const is_authenticated = async () => {
 
     }
 }
+
+export const logout = async () => {
+    const response: any = await authApi.logout();
+    return response
+}

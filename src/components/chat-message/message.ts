@@ -12,7 +12,7 @@ export default class ChatMessage extends Block<IProps>{
     constructor(props: IProps) {
         if(props.attach.length != 0){
             const AttachComponents = props.attach.reduce((acc: { [key: string]: Block<object> }, data: string) => {
-                console.log(acc, data);
+                //console.log(acc, data);
                 const component = new Attach({attach: data});
                 acc[component._id] = component;
                 return acc;

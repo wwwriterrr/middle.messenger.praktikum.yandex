@@ -5,6 +5,7 @@ import * as Components from './components';
 import * as Pages from './pages';
 import Router from './core/Router';
 import { Store } from './core/Store';
+import {is_authenticated} from "./services/auth.ts";
 
 
 Handlebars.registerHelper('if_eq', function(a, b, opts) {
@@ -35,14 +36,27 @@ window.store = new Store({
     userData: {},
 });
 
+const is_auth = is_authenticated();
+is_auth.then(() => {
+    router
+        .use('/', Pages.LoginPage)
+        .use('/login', Pages.LoginPage)
+        .use('/sign-up', Pages.RegistratePage)
+        .use('/settings', Pages.ProfilePage)
+        .use('/messenger', Pages.ChatPage)
+        .use('/remember-password', Pages.RememberPassword)
+        .use('/remember-password-auth', Pages.RememberPassword)
+        .use('*', Pages.ErrorPage)
+        .start();
+})
 
-router
-    .use('/', Pages.LoginPage)
-    .use('/login', Pages.LoginPage)
-    .use('/sign-up', Pages.RegistratePage)
-    .use('/settings', Pages.ProfilePage)
-    .use('/messenger', Pages.ChatPage)
-    .use('/remember-password', Pages.RememberPassword)
-    .use('/remember-password-auth', Pages.RememberPassword)
-    .use('*', Pages.ErrorPage)
-    .start();
+// router
+//     .use('/', Pages.LoginPage)
+//     .use('/login', Pages.LoginPage)
+//     .use('/sign-up', Pages.RegistratePage)
+//     .use('/settings', Pages.ProfilePage)
+//     .use('/messenger', Pages.ChatPage)
+//     .use('/remember-password', Pages.RememberPassword)
+//     .use('/remember-password-auth', Pages.RememberPassword)
+//     .use('*', Pages.ErrorPage)
+//     .start();

@@ -1,6 +1,7 @@
 import Block from "../../core/Block";
 import { FormProfile, ModalWrap, ModalAvatar, AvatarButton } from "../../components";
 import isEqual from 'lodash/isEqual';
+import { is_authenticated } from "../../services/auth.ts";
 
 
 interface IProps {
@@ -22,7 +23,14 @@ export default class ProfilePage extends Block<IProps>{
         });
     }
 
-    init(){
+    async init(){
+        // const is_auth = await is_authenticated();
+        // if(!is_auth){
+        //     window.router.go('/login');
+        // }
+        const { user } = window.store.getState();
+        if(!user) window.router.go('/login');
+
         const onClickAvButtonBind = this.onClickAvButton.bind(this);
 
         const ButtonChangeAv = new AvatarButton({onClick: onClickAvButtonBind});
