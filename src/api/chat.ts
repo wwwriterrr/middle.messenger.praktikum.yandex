@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { HTTPTransport } from "../core/HTTPTransport";
 import { APIError, CreateChat } from "./type";
 

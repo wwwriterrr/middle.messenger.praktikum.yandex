@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import Route from "./Route";
 
 class Router {

@@ -1,6 +1,5 @@
 import Block from "../../core/Block";
 import { connect } from "../../utils/connect";
-import AvatarEmpty from '/public/chat_empty.svg';
 import {Button} from "../button";
 
 
@@ -59,8 +58,8 @@ class ChatItem extends Block<IProps>{
     render(): string {
         const { selectedChat } = window.store.getState();
         const is_active = selectedChat.id === this.props.id;
-        let chatAvatar = (this.props.avatar) ? `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}` : AvatarEmpty;
-        if(selectedChat.id === this.props.id) chatAvatar = `https://ya-praktikum.tech/api/v2/resources${selectedChat.avatar}`;
+        let chatAvatar = (this.props.avatar) ? `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}` : '/public/chat_empty.svg';
+        if(selectedChat.id === this.props.id && selectedChat.avatar) chatAvatar = `https://ya-praktikum.tech/api/v2/resources${selectedChat.avatar}`;
 
         const msg: string = (this.props.last_message) ? this.props.last_message : 'No messages';
 

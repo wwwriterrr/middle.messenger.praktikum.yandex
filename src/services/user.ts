@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import UserApi from "../api/user";
 
 

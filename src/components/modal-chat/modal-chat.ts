@@ -29,7 +29,7 @@ class ModalChat extends Block<Object>{
         console.log('save chat');
     }
 
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
+    componentDidUpdate(): boolean {
         return true;
     }
 

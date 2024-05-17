@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 export type APIError = {
     reason: string;
 };

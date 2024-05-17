@@ -12,6 +12,20 @@ interface IProps{
     MessageForm: Block<object>
 }
 
+interface IChat{
+    id: number,
+    title: string,
+    avatar: string
+}
+
+type ChatObj = {
+    id: number,
+    title: string | null,
+    avatar: string | null,
+    unread_count: number,
+    last_message: null | any
+}
+
 class ChatPage extends Block<IProps>{
     async componentDidMount() {
         await getChats();
@@ -91,7 +105,7 @@ class ChatPage extends Block<IProps>{
 
     }
 
-    mapChatsToCompoennt(chats, activeId, hundler) {
+    mapChatsToCompoennt(chats: ChatObj[], activeId: number | null, hundler: any) {
         return chats?.map(({title, avatar, id, unread_count, last_message}) =>  new ChatItem({title, avatar, click: hundler, id, activeId, unread_count, last_message}))
     }
 
@@ -109,9 +123,8 @@ class ChatPage extends Block<IProps>{
     }
 
 
-    onChatClick(chat: any){
+    onChatClick(chat: IChat){
         //this.setProps({selectedChat: chat});
-        console.log(chat);
         window.store.set({selectedChat: chat});
     }
 

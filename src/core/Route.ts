@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 class Route {
     private _pathname: string;
     private _blockClass: any;

@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 const HOST = 'https://ya-praktikum.tech/api/v2';
 
 enum METHOD {

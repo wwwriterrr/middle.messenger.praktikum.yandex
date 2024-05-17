@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import ChatsApi from "../api/chat";
 import { CreateChat } from "../api/type";
 

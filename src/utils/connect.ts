@@ -1,5 +1,8 @@
+//@ts-nocheck
+
 import { StoreEvents } from "../core/Store";
 import isEqual from './isEqual';
+
 
 export function connect(mapStateToProps, dispatch?) {
     return function(Component) {

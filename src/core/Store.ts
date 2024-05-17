@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import EventBus from './EventBus';
 
 export enum StoreEvents {

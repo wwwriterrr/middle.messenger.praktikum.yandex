@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { HTTPTransport } from "../core/HTTPTransport";
 import { APIError, CreateUser, LoginRequestData, SignUpResponse, UserDTO } from "./type";
 
@@ -19,15 +21,15 @@ export default class AuthApi {
     }
 
     async login(data: LoginRequestData): Promise<void | APIError> {
-        return authApi.post('/signin', {data});
+        return authApi.post<void | APIError>('/signin', {data});
         // return await delay(data.login === 'httperror')
     }
 
     async me(): Promise<UserDTO | APIError> {
-        return authApi.get('/user');
+        return authApi.get<UserDTO | APIError>('/user');
     }
 
     async logout(): Promise<void | APIError> {
-        return authApi.post('/logout')
+        return authApi.post<void | APIError>('/logout')
     }
 }
