@@ -1,6 +1,5 @@
 import Block from "../../core/Block";
 import { connect } from "../../utils/connect";
-import ChatItem from "../chat_item/chat-item.ts";
 
 
 interface IProps{
@@ -21,11 +20,13 @@ class ChatsList extends Block<any>{
     }
 
     render(): string {
-        console.log('List block chats', this.props.chats);
         return `
             <div class="chats-list">
                 {{#if showEmpty}}
                 <div class="chats-list__empty">No chats</div>
+                {{/if}}
+                {{#if chatsError}}
+                <div class="chats-list__error">{{ chatsError }}</div>
                 {{/if}}
                 {{{ chats }}}
             </div>
@@ -33,4 +34,4 @@ class ChatsList extends Block<any>{
     }
 }
 
-export default connect(({chatsLoading}) => ({chatsLoading}))(ChatsList);
+export default connect(({chatsLoading, chatsError}) => ({chatsLoading, chatsError}))(ChatsList);

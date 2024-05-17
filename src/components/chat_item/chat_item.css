@@ -1,17 +1,30 @@
+$active_color: #d0d4e1;
+
 .chat-item{
     position: relative;display: grid;grid-template: 'avatar head head' auto 'avatar msg count' auto / 60px 1fr auto;
-    grid-gap: 6px 10px;padding: 15px 14px 15px 14px;
-    &__avatar-wrap{grid-area: avatar;position: relative;aspect-ratio: 1/1;border-radius: 50%;overflow: hidden;}
-    &__avatar{width: 100%;height: 100%;}
+    grid-gap: 6px 10px;padding: 15px 14px 15px 14px;cursor: pointer;
+    *{cursor: pointer;}
+    &_active{background-color: $active_color;border-color: $active_color;}
+    &__avatar-wrap{grid-area: avatar;position: relative;aspect-ratio: 1/1;border-radius: 50%;overflow: hidden;background-color: #e3e3e3;}
+    &__avatar{width: 100%;height: 100%;font-size: 0;}
     &__head{grid-area: head;display: flex;align-items: flex-end;justify-content: space-between;}
     &__name{color: #000;font-weight: 500;}
-    &__date{font-size: .8em;opacity: .6;}
-    &__msg{grid-area: msg;font-size: .9em;font-weight: 300;color: #000;}
+    &__date{
+        font-size: .8em;opacity: .6;
+    }
+    &__settings{
+        width: 24px;
+    }
+    &__msg{
+        grid-area: msg;font-size: .9em;font-weight: 300;color: #000;
+        &_empty{opacity: .6;}
+    }
     &__count{
         grid-area: count;align-self: end;display: flex;align-items: center;justify-content: center; width: 30px;
         aspect-ratio: 1/1;border-radius: 50%;background-color: var(--blue-color);color: #fff; font-size: .8em;font-weight: 600;
         &::before{content: attr(data-count);}
-        &[data-count=""]{display: none;}
+        &[data-count=""],
+        &[data-count="0"]{display: none;}
     }
     &:not(:last-child){border-bottom: 1px solid #e3e3e3;}
 }

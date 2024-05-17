@@ -1,5 +1,5 @@
 import Block from "../../core/Block";
-import { Button, ChatsList, MessagesList, ChatForm, ModalWrap, ModalAddChat, ChatItem } from "../../components";
+import { Button, ChatsList, MessagesList, ChatForm, ModalWrap, ModalAddChat, ModalChat, ChatItem } from "../../components";
 import { logout } from "../../services/auth";
 import { getChats } from "../../services/chat";
 import { connect } from "../../utils/connect";
@@ -15,7 +15,6 @@ interface IProps{
 class ChatPage extends Block<IProps>{
     async componentDidMount() {
         await getChats();
-        console.log('chats', window.store.getState());
     }
 
     constructor(props: IProps) {
@@ -25,7 +24,8 @@ class ChatPage extends Block<IProps>{
                 modalVisible: false,
                 modalTitle: 'Add chat',
                 modalContent: new ModalAddChat({}),
-            })
+            }),
+            ChatModal: new ModalChat(),
         });
     }
 
@@ -92,7 +92,7 @@ class ChatPage extends Block<IProps>{
     }
 
     mapChatsToCompoennt(chats, activeId, hundler) {
-        return chats?.map(({name, logo, id}) =>  new ChatItem({name, avatar: logo, click: hundler, id, activeId}))
+        return chats?.map(({title, avatar, id, unread_count, last_message}) =>  new ChatItem({title, avatar, click: hundler, id, activeId, unread_count, last_message}))
     }
 
     componentDidUpdate(oldProps: any, newProps: any): boolean {
@@ -109,8 +109,9 @@ class ChatPage extends Block<IProps>{
     }
 
 
-    onChatClick(){
-        console.log('Chat click');
+    onChatClick(chat: any){
+        //this.setProps({selectedChat: chat});
+        window.store.set({selectedChat: chat});
     }
 
     onLogout() {
@@ -124,6 +125,7 @@ class ChatPage extends Block<IProps>{
             <div class="container">
                 <div class="chat-page">
                     {{{ Modal }}}
+                    {{{ ChatModal }}}
                     <div class="chat__side">
                         <div class="chat__side-head">
                             <div class="chat__side-mng">
@@ -152,4 +154,4 @@ class ChatPage extends Block<IProps>{
     }
 }
 
-export default connect(({chats, selectedChat}) => ({chats, selectChat: selectedChat}))(ChatPage)
+export default connect(({chats}) => ({chats}))(ChatPage)
