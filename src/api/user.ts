@@ -18,7 +18,7 @@ export default class UserApi {
         // return await delay(data.login === 'httperror');
     }
 
-    async avatar(data: FormData): Promis<void | APIError> {
+    async avatar(data: FormData): Promise<void | APIError> {
         return user_api.put('/profile/avatar', { data })
     }
 }

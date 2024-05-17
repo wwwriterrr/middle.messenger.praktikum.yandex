@@ -111,6 +111,7 @@ class ChatPage extends Block<IProps>{
 
     onChatClick(chat: any){
         //this.setProps({selectedChat: chat});
+        console.log(chat);
         window.store.set({selectedChat: chat});
     }
 

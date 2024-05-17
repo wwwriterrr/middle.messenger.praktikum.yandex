@@ -11,7 +11,11 @@ export default class ChatsApi {
     }
 
     async add_chat(data: CreateChat): Promise<void | APIError> {
-        return chats_api.post('/', {data});
+        return chats_api.post('/', { data });
+    }
+
+    async set_avatar(data: FormData): Promise<void | APIError> {
+        return chats_api.put('/avatar', { data })
     }
 }
 

@@ -37,6 +37,7 @@ window.store = new Store({
     chats: [],
     selectedChat: {},
     showChatModal: false,
+    settingsChat: {},
 });
 
 const is_auth = is_authenticated();

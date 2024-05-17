@@ -29,12 +29,14 @@ class ChatItem extends Block<IProps>{
                     props?.click(chat)
                 }
             },
-            chatAvatar: props.avatar || AvatarEmpty,
+            //chatAvatar: (props.avatar) ? `https://ya-praktikum.tech/api/v2/resources${props.avatar}` : AvatarEmpty,
         })
     }
 
     init(){
-        const ButtonSettings = new Button({label: '', classes: 'button_nofill button_chat-settings chat-item__settings', onClick: () => { window.store.set({showChatModal: true}); }});
+        const onSettingsClickBind = this.onSettingsClick.bind(this);
+
+        const ButtonSettings = new Button({label: '', classes: 'button_nofill button_chat-settings chat-item__settings', onClick: onSettingsClickBind});
 
         this.children = {
             ...this.children,
@@ -42,21 +44,30 @@ class ChatItem extends Block<IProps>{
         }
     }
 
-    componentDidUpdate(oldProps, newProps): boolean {
+    onSettingsClick(){
+        window.store.set({
+            showChatModal: true,
+            selectedChat: {id: this.props.id, title: this.props.title, avatar: this.props.avatar},
+            settingsChat: {id: this.props.id, title: this.props.title, avatar: this.props.avatar},
+        });
+    }
+
+    componentDidUpdate(): boolean {
         return true;
     }
 
     render(): string {
-        console.log(this.props.last_message);
         const { selectedChat } = window.store.getState();
         const is_active = selectedChat.id === this.props.id;
+        let chatAvatar = (this.props.avatar) ? `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}` : AvatarEmpty;
+        if(selectedChat.id === this.props.id) chatAvatar = `https://ya-praktikum.tech/api/v2/resources${selectedChat.avatar}`;
 
         const msg: string = (this.props.last_message) ? this.props.last_message : 'No messages';
 
         return `
             <div class="chat-item {{#if ${ is_active }}}chat-item_active{{/if}}" data-id="{{ id }}">
                 <div class="chat-item__avatar-wrap">
-                    <img class="chat-item__avatar" src="{{ chatAvatar }}" alt="{{ title }}">
+                    <img class="chat-item__avatar" src="${ chatAvatar }" alt="{{ title }}">
                 </div>
                 <div class="chat-item__head">
                     <div class="chat-item__name">{{ title }}</div>
@@ -69,4 +80,4 @@ class ChatItem extends Block<IProps>{
     }
 }
 
-export default connect(({selectedChat}) => ({selectedChat}))(ChatItem)
+export default connect(({selectedChat, settingsChat}) => ({selectedChat, settingsChat}))(ChatItem)
