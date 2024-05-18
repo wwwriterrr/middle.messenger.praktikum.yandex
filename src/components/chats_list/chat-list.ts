@@ -3,12 +3,11 @@ import { connect } from "../../utils/connect";
 
 
 interface IProps{
-    ChatComponentsKeys?: [string],
-    ChatComponents?: Block<object>[],
-    chats: any
+    chats: any,
+    onClick: () => void,
 }
 
-class ChatsList extends Block<any>{
+class ChatsList extends Block<IProps>{
     constructor(props: IProps) {
         super({
             ...props,

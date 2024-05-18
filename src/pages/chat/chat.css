@@ -1,6 +1,6 @@
 .chat-page{
     position: relative;width: 100%;height: 100vh;overflow: hidden; display: grid;
-    grid-template: 'side header' 60px 'side messages' 1fr 'side form' auto / 400px 1fr;
+    grid-template: 'side header' auto 'side messages' 1fr 'side form' auto / 400px 1fr;
 }
 .chat{
     &__side{grid-area: side;position: relative; display: grid;grid-template: 'head' auto 'chats' 1fr / 100%;border-right: 1px solid var(--grey-color);}

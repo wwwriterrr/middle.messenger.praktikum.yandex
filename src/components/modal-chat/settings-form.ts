@@ -72,6 +72,7 @@ class ChatSettingsForm extends Block<SProps>{
                             <img class="chat-settings__avatar-preview" src="https://ya-praktikum.tech/api/v2/resources${chatAvatar}" alt="Chat avatar" />
                         </label>
                     </div>
+                    
                     <!--<div class="chat-settings__row">
                         <div class="chat-settings__row__before">Chat title</div>
                         <input type="text" name="chat-title" placeholder="Enter title" value="${chatTitle}" />

@@ -72,3 +72,24 @@ export const setAvatar = async (model: FormData) => {
         window.store.set({settingsChatLoading: false});
     }
 }
+
+export const getUsers = async (model: {chat_id: number}) => {
+    window.store.set({usersLoading: true});
+    try{
+        const response: any = await chatsApi.get_users(model);
+
+        if(response.status !== 200){
+            const responseData = await response.json();
+            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
+            else throw new Error(`Fetch error. Already fix it.`);
+        }
+
+        const responseData = await response.json();
+        window.store.set({users: responseData});
+    }catch (error) {
+        if(error) window.store.set({usersError: error.message});
+        else window.store.set({usersError: 'Chats fetch error'});
+    }finally {
+        window.store.set({usersLoading: false});
+    }
+}

@@ -1,7 +1,7 @@
 import Block from "../../core/Block";
-import { Button, ChatsList, MessagesList, ChatForm, ModalWrap, ModalAddChat, ModalChat, ChatItem } from "../../components";
+import { Button, ChatsList, ChatUsers, MessagesList, ChatForm, ModalWrap, ModalAddChat, ModalChat, ChatItem } from "../../components";
 import { logout } from "../../services/auth";
-import { getChats } from "../../services/chat";
+import { getChats, getUsers } from "../../services/chat";
 import { connect } from "../../utils/connect";
 
 
@@ -80,8 +80,8 @@ class ChatPage extends Block<IProps>{
         const ButtonProfile = new Button({label: 'Profile', classes: 'button_nofill button-greytext button-prof-left', page: 'profile', onClick: () => { window.router.go('/settings'); }});
         const ButtonLogout = new Button({label: 'Log Out', classes: 'button_nofill button_logout', onClick: onLogoutBind});
         const ButtonAddChat = new Button({label: 'Add chat', classes: 'button_nofill button_greytext', onClick: () => {this.children.Modal.setProps({modalVisible: true});}});
-        //const Chats = new ChatsList({chats: chats});
         const Chats = new ChatsList({chats: this.mapChatsToCompoennt(this.chats, null, onChatClickBind) || []});
+        const Users = new ChatUsers({});
         const Messages = new MessagesList({messages: messages});
         const MessageForm = new ChatForm({});
 
@@ -91,8 +91,9 @@ class ChatPage extends Block<IProps>{
             ButtonLogout,
             ButtonAddChat,
             Chats,
+            Users,
             Messages,
-            MessageForm
+            MessageForm,
         }
 
         // Scroll to last message
@@ -126,6 +127,7 @@ class ChatPage extends Block<IProps>{
     onChatClick(chat: IChat){
         //this.setProps({selectedChat: chat});
         window.store.set({selectedChat: chat});
+        getUsers({chat_id: chat.id});
     }
 
     onLogout() {
@@ -156,7 +158,7 @@ class ChatPage extends Block<IProps>{
                         {{{ Chats }}}
                     </div>
                     <div class="chat__header">
-                        <!-- Chat info there -->
+                        {{{ Users }}}
                     </div>
                     {{{ Messages }}}
                     <div class="chat__form-wrap">

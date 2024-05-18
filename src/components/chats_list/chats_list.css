@@ -1,0 +1,3 @@
+.chats-list{
+    &__empty{padding: 20px;}
+}

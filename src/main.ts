@@ -39,8 +39,11 @@ window.store = new Store({
     user: null,
     userData: {},
     chats: [],
+    users: [],
     selectedChat: {},
+    selectedUser: {},
     showChatModal: false,
+    showAddUserModal: false,
     settingsChat: {},
 });
 

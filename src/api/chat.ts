@@ -12,6 +12,10 @@ export default class ChatsApi {
         // return await delay(data.login === 'httperror');
     }
 
+    async get_users(data: { chat_id: number }): Promise<void | APIError>{
+        return chats_api.get(`/${data.chat_id}/users`);
+    }
+
     async add_chat(data: CreateChat): Promise<void | APIError> {
         return chats_api.post('/', { data });
     }
