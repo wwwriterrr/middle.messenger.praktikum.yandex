@@ -93,3 +93,25 @@ export const getUsers = async (model: {chat_id: number}) => {
         window.store.set({usersLoading: false});
     }
 }
+
+export const addUsers = async (model: {users: number[], chatId: number}) => {
+    window.store.set({addUserLoading: true});
+    try{
+        const response: any = await chatsApi.add_users(model);
+
+        if(response.status !== 200){
+            const responseData = await response.json();
+            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
+            else throw new Error(`Fetch error. Already fix it.`);
+        }
+
+        //const responseData = await response.json();
+        window.store.set({addUserSuccess: 'Users successfully added'});
+        await getUsers({chat_id: model.chatId});
+    }catch (error) {
+        if(error) window.store.set({addUserError: error.message});
+        else window.store.set({addUserError: 'Chats fetch error'});
+    }finally {
+        window.store.set({addUserLoading: false});
+    }
+}

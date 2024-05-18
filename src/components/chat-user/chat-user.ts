@@ -16,7 +16,8 @@ export default class ChatUser extends Block<UserObj>{
     constructor(props: UserObj) {
         super({
             ...props,
-            userAvatar: (props.avatar) ? `https://ya-praktikum.tech/api/v2/resources${props.avatar}` : '/public/av1.jpg',
+            userAvatar: (props.avatar) ? `https://ya-praktikum.tech/api/v2/resources${props.avatar}` : '/public/noavatar.svg',
+            userName: (props.display_name) ? props.display_name : (props.first_name) ? `${props.first_name} ${props.second_name}` : props.login,
             events: {
                 click: () => {
                     const user = {
@@ -31,8 +32,8 @@ export default class ChatUser extends Block<UserObj>{
     render() {
         return `
             <div class="chat-user chat-user_{{role}}" data-id="{{ id }}">
-                <img class="chat-user__avatar" src="{{ userAvatar }}" alt="{{ display_name }}" />
-                <div class="chat-user__name">{{ display_name }}</div>
+                <img class="chat-user__avatar" src="{{ userAvatar }}" alt="{{ userName }}" />
+                <div class="chat-user__name">{{ userName }}</div>
             </div>
         `
     }

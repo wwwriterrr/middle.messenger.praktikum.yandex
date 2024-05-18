@@ -8,4 +8,15 @@
     &__head{display: flex;align-items: center;justify-content: space-between;gap: 10px;}
     &__title{font-weight: 500;}
     .modal__close-btn{}
+    &__content{
+
+    }
+}
+
+.adduser-form{
+    position: relative;display: flex;flex-direction: column;gap: 20px;
+    &__row{}
+    &__info{text-align: center;text-align: center;}
+    &__error{font-weight: 400;color: red;}
+    .button{width: 100%;}
 }

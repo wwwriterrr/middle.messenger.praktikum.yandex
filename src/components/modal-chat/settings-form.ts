@@ -52,7 +52,8 @@ class ChatSettingsForm extends Block<SProps>{
     render() {
         const { settingsChat } = window.store.getState();
         const chatTitle = settingsChat.title;
-        const chatAvatar = settingsChat.avatar;
+        const chatAvatar = (settingsChat.avatar) ? `https://ya-praktikum.tech/api/v2/resources${settingsChat.avatar}` : '#';
+        const hasAvatar = settingsChat.avatar;
 
         return `
             <form class="chat-settings">
@@ -67,9 +68,9 @@ class ChatSettingsForm extends Block<SProps>{
                     </div>
                     {{/if}}
                     <div class="chat-settings__row">
-                        <label class="chat-settings__avatar-wrap {{#if ${!chatAvatar}}}chat-settings__avatar-wrap_notset{{/if}}">
+                        <label class="chat-settings__avatar-wrap {{#if ${!hasAvatar}}}chat-settings__avatar-wrap_notset{{/if}}">
                             {{{ AvatarInput }}}
-                            <img class="chat-settings__avatar-preview" src="https://ya-praktikum.tech/api/v2/resources${chatAvatar}" alt="Chat avatar" />
+                            <img class="chat-settings__avatar-preview" src=" ${chatAvatar} " alt="Chat avatar" />
                         </label>
                     </div>
                     

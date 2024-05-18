@@ -1,6 +1,6 @@
 import Block from "../../core/Block";
 import { connect } from "../../utils/connect";
-import {Button} from "../button";
+import { Button } from "../button";
 
 
 interface IProps{
@@ -28,7 +28,7 @@ class ChatItem extends Block<IProps>{
                     props?.click(chat)
                 }
             },
-            //chatAvatar: (props.avatar) ? `https://ya-praktikum.tech/api/v2/resources${props.avatar}` : AvatarEmpty,
+            //chatAvatar: (props.avatar) ? `https://ya-praktikum.tech/api/v2/resources${props.avatar}` : '/public/chat_empty.svg',
         })
     }
 

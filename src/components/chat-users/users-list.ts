@@ -12,7 +12,6 @@ class UsersList extends Block<IProps>{
         return `
             <div class="users-items">
                 {{{ users }}}
-                {{{ AddUserButton }}}
             </div>
         `
     }

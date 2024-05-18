@@ -14,7 +14,6 @@ interface IProps {
 
 class Button extends Block<IProps> {
     constructor(props: IProps) {
-        console.log(props);
         super({
             ...props,
             events: {

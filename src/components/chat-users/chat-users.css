@@ -3,7 +3,7 @@
     &__title{font-size: .8em;font-weight: 500;}
     &__nochat{opacity: .7;font-size: .8em;}
     &__manage{
-        .button{padding: 0 14px;}
+        .button{padding: 0 14px;border-radius: 30px;}
     }
 }
 

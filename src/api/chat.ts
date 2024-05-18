@@ -16,6 +16,10 @@ export default class ChatsApi {
         return chats_api.get(`/${data.chat_id}/users`);
     }
 
+    async add_users(data: {users: number[], chatId: number}){
+        return chats_api.put('/users', {data})
+    }
+
     async add_chat(data: CreateChat): Promise<void | APIError> {
         return chats_api.post('/', { data });
     }
