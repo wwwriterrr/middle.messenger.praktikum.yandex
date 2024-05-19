@@ -1,53 +1,46 @@
 import Block from "../../core/Block";
-import Attach from "./attach-component";
 
 
-interface IProps{
-    message: any,
-    attach: any,
-    AttachComponentsKeys?: [string]
+type TMessage = {
+    id: number,
+    content: string,
+    user_id: number,
+    time: string,
+    file?: {
+        id: number,
+        user_id: number
+        path: string,
+        filename: string,
+        content_type: string,
+        content_size: number,
+        upload_date: string,
+    }
 }
 
-export default class ChatMessage extends Block<IProps>{
-    constructor(props: IProps) {
-        if(props.attach.length != 0){
-            const AttachComponents = props.attach.reduce((acc: { [key: string]: Block<object> }, data: string) => {
-                //console.log(acc, data);
-                const component = new Attach({attach: data});
-                acc[component._id] = component;
-                return acc;
-            }, {});
-
-            super({
-                ...props,
-                AttachComponentsKeys: Object.keys(AttachComponents),
-                ...AttachComponents
-            })
-        }else{
-            super(props);
-        }
-    }
+export default class ChatMessage extends Block<TMessage>{
 
     render() {
+        const { userData, users } = window.store.getState();
+        const sender_user = users.filter((user: any) => user.id === this.props.user_id)[0];
+
+        const is_self = (sender_user.id === userData.id);
+        const senderAvatar = (sender_user.avatar) ? `https://ya-praktikum.tech/api/v2/resources${sender_user.avatar}` : '/public/noavatar.svg';
+        const senderName = (sender_user.display_name) ? sender_user.display_name : (sender_user.first_name) ? `${sender_user.first_name} ${sender_user.second_name}` : sender_user.login;
+
+        console.log(sender_user);
+
         return `
-            <div class="message-container {{#if_eq message.sender 'self'}}message-container_self{{/if_eq}}">
-                <div id="message-{{message.id}}" class="message {{#if_eq message.sender 'self'}}message_self{{/if_eq}}">
-                    <div class="message__avatar"><img src="{{message.avatar}}" alt="{{message.sender}}"></div>
-                    <div class="message__wrap">
-                        <div class="message__head">
-                            <div class="message__sender">{{#if_eq message.sender "self"}}Rocky{{else}}{{message.sender}}{{/if_eq}}</div>
-                            <div class="message__date">{{message.date}}</div>
-                        </div>
-                        <div class="message__text">{{message.msg}}</div>
+            <div class="message-item {{#if ${ is_self }}}message-item_self{{/if}}">
+                <img class="message-item__avatar" src="${ senderAvatar }" alt="${ senderName }" />
+                <div class="message-item__wrap">
+                    <div class="message-item__head">
+                        <div class="message-item__sender">${ senderName }</div>
+                        <div class="message-item__time">{{ time }}</div>
+                    </div>
+                    <div class="message-item__content">
+                        {{ content }}
                     </div>
                 </div>
-                {{#if attach}}
-                <div class="message-attach {{#if_eq message.sender 'self'}}message-attach_self{{/if_eq}}" data-message="{{message.id}}">
-                    <div class="message-attach__wrap" data-length="{{attach.length}}">
-                        ${this.props.AttachComponentsKeys && this.props.AttachComponentsKeys.map((key) => `{{{ ${key} }}}`).join('')}
-                    </div>
-                </div>
-                {{/if}}
             </div>
         `
     }

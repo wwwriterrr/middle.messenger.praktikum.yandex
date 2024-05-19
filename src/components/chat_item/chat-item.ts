@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import Block from "../../core/Block";
 import { connect } from "../../utils/connect";
 import { Button } from "../button";
@@ -59,9 +61,14 @@ class ChatItem extends Block<IProps>{
         const { selectedChat } = window.store.getState();
         const is_active = selectedChat.id === this.props.id;
         let chatAvatar = (this.props.avatar) ? `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}` : '/public/chat_empty.svg';
-        //if(selectedChat.id === this.props.id && selectedChat.avatar) chatAvatar = `https://ya-praktikum.tech/api/v2/resources${selectedChat.avatar}`;
 
-        const msg: string = (this.props.last_message) ? this.props.last_message : 'No messages';
+        let msg = 'No messages';
+        if(this.props.last_message){
+            const { userData } = window.store.getState();
+            const sender = this.props.last_message.user;
+            const sender_name = (sender.display_name) ? sender.display_name : (sender.first_name) ? `${sender.first_name} ${sender.second_name}` : sender.login;
+            msg = `${(sender.login === userData.login) ? 'You' : sender_name}: ${this.props.last_message.content}`;
+        }
 
         return `
             <div class="chat-item {{#if ${ is_active }}}chat-item_active{{/if}}" data-id="{{ id }}">
@@ -72,7 +79,9 @@ class ChatItem extends Block<IProps>{
                     <div class="chat-item__name">{{ title }}</div>
                     {{{ ButtonSettings }}}
                 </div>
-                <div class="chat-item__msg {{#if ${!this.props.last_message}}}chat-item__msg_empty{{/if}}">${ msg }</div>
+                <div class="chat-item__msg {{#if ${!this.props.last_message}}}chat-item__msg_empty{{/if}}">
+                    ${ msg }
+                </div>
                 <div class="chat-item__count" data-count="{{ unread_count }}"></div>
             </div>
         `

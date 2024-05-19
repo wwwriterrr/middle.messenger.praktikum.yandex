@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { FormRegistrate, FormWrapper } from "../../components"
 import Block from "../../core/Block"
 

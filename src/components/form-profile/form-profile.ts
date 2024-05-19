@@ -77,14 +77,14 @@ class FormProfile extends Block {
         return true;
     }
 
-    onChangeField(e){
-        Object.keys(this.children).map(key => {
-            const element = this.children[key];
-            if(element.props.oldValue && element.props.oldValue !== element.props.value){
-                this.setProps({changed: true})
-            }
-        })
-    }
+    // onChangeField(e){
+    //     Object.keys(this.children).map(key => {
+    //         const element = this.children[key];
+    //         if(element.props.oldValue && element.props.oldValue !== element.props.value){
+    //             this.setProps({changed: true})
+    //         }
+    //     })
+    // }
 
     onChangePassword(){
         this.children.Modal.setProps({modalVisible: true,});
@@ -119,13 +119,13 @@ class FormProfile extends Block {
     render() {
         return (`
             <form class="form form__profile profile__rows">
+                {{{ Modal }}}
                 {{#if isLoading}}
                     <div>Saving data...</div>
                 {{else}}
                     {{#if userError}}
                     <div class="form__error">{{ userError }}</div>
                     {{/if}}
-                    {{{ Modal }}}
                     {{{ InputEmail }}}
                     {{{ InputLogin }}}
                     {{{ InputFName }}}

@@ -5,7 +5,7 @@ type AvatarProps = {
     onChange?: () => void,
 }
 
-class AvatarInput extends Block {
+class AvatarInput extends Block<AvatarProps> {
     constructor(props: AvatarProps) {
         super({
             ...props,

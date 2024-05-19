@@ -8,7 +8,7 @@ export { ChatUsers } from './chat-users';
 export { ChatUser } from './chat-user';
 //export { Modal } from './modal';
 export { ChatMessage } from './chat-message';
-export { MessagesList } from './messages-list';
+export { Messages } from './messages-list';
 export { ChatForm } from './form-chat';
 export { AttachModal } from './attach_modal';
 export { FormWrapper } from './form-wrapper';

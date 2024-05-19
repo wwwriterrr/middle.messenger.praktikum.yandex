@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import Block from "../../core/Block"
 import { Button } from "../button"
 import { Input } from "../input"

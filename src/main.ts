@@ -40,6 +40,8 @@ window.store = new Store({
     userData: {},
     chats: [],
     users: [],
+    messages: [],
+    chatSocket: null,
     selectedChat: {},
     selectedUser: {},
     showChatModal: false,

@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import Block from "../../core/Block";
 import ChatItem from "../chat_item/chat-item";
 

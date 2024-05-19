@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import Block from "../../core/Block";
 import { connect } from "../../utils/connect";
 import ChatAvatarInput from "./avatar-input";

@@ -35,5 +35,9 @@ export default class ChatsApi {
     async set_avatar(data: FormData): Promise<void | APIError> {
         return chats_api.put('/avatar', { data })
     }
+
+    async get_token(data: { chat_id: number }): Promise<void | APIError>{
+        return chats_api.post(`/token/${data.chat_id}`);
+    }
 }
 

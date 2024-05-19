@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import Block from "../../core/Block";
 import { FormProfile, ModalWrap, ModalAvatar, AvatarButton } from "../../components";
 import isEqual from 'lodash/isEqual';

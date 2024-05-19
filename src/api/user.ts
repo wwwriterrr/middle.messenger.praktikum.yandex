@@ -20,6 +20,10 @@ export default class UserApi {
         // return await delay(data.login === 'httperror');
     }
 
+    async change_password(data: {oldPassword: string, newPassword: string}): Promise<void | APIError>{
+        return user_api.put('/password', { data });
+    }
+
     async avatar(data: FormData): Promise<void | APIError> {
         return user_api.put('/profile/avatar', { data })
     }

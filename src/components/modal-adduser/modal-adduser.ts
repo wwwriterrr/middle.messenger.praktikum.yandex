@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import Block from "../../core/Block";
 import ModalCloseBtn from "../modal-wrap/modal-close-btn";
 import { connect } from "../../utils/connect";

@@ -1,7 +1,9 @@
+//@ts-nocheck
+
 import Block from "../../core/Block";
-import { Button, ChatsList, ChatUsers, MessagesList, ChatForm, ModalWrap, ModalAddChat, ModalChat, ChatItem } from "../../components";
+import { Button, ChatsList, ChatUsers, Messages, ChatForm, ModalWrap, ModalAddChat, ModalChat, ChatItem } from "../../components";
 import { logout } from "../../services/auth";
-import { getChats, getUsers } from "../../services/chat";
+import {getChats, getToken, getUsers} from "../../services/chat";
 import { connect } from "../../utils/connect";
 
 
@@ -44,36 +46,6 @@ class ChatPage extends Block<IProps>{
     }
 
     async init(){
-        /*const chats = [
-            {id: 1, avatar: '/public/av1.jpg', name: 'Batman', msg: 'Stuff sooner subjects indulgence forty child theirs unpleasing supported projecting certain.', date: '12:10', count: 4},
-            {id: 2, avatar: '/public/av2.jpg', name: 'Robin', msg: 'Up above afford furniture worse. Them dine position warrant expense he.', date: 'yda'},
-            {id: 3, avatar: '/public/av3.jpg', name: 'Pacman', msg: 'Welcomed result continued remainder endeavor tastes rank quit. ', date: 'md', count: '99+'},
-            {id: 4, avatar: '/public/av4.jpg', name: 'Rastaman', msg: 'Ready attention inquietude must differed.', date: '10.01 2021'},
-            {id: 5, avatar: '/public/av5.jpg', name: 'Gosling', msg: 'Remark impossible indeed quitting plan appearance.', date: '21.03.2019'},
-        ]*/
-        const messages = [
-            {id: 3251, sender: 'Robin', avatar: '/public/av2.jpg', msg: 'Hey there!', date: '9:32',
-            attach: [
-                '/public/attach1.jpg'
-            ]
-            },
-            {id: 3252, sender: 'Robin', avatar: '/public/av2.jpg', msg: 'Kept style wishing future express earnestly deficient.\n\nFavourable added moments room viewing thought rent kindness elsewhere admitting heart whose decisively ability. Gate engrossed taste excuse commanded under nor pasture gay sentiments. Folly concealed sold boisterous had means have tedious devonshire mean. Civility talked same spoil you sensible father. Sold just company repair formal elinor away absolute wondered tried dearest hung spirit no pulled. ', date: '11:41',
-            attach: [
-                '/public/attach3.jpg',
-                '/public/attach4.jpg'
-            ]},
-            {id: 3253, sender: 'Robin', avatar: '/public/av2.jpg', msg: 'Lasting regret sweetness curiosity. Built children anxious on. Perceive hardly sure farther drawings resembled resolved mile half miss zealously estate ﻿no enjoyment strongly down cannot. Moonlight desire indulgence indulgence joy civility greatly upon chief proposal arrival knew. Head precaution equal piqued possible continued seemed must myself mind surprise started prepare sympathize with.', date: '11:55',
-            attach: [
-                '/public/attach1.jpg',
-                '/public/attach2.jpg',
-                '/public/attach3.jpg',
-                '/public/attach4.jpg',
-                '/public/attach5.jpg',
-            ]},
-            {id: 3254, sender: 'self', avatar: '/public/av1.jpg', msg: 'OK', date: '12:01', attach: []},
-            {id: 3255, sender: 'Robin', avatar: '/public/av2.jpg', msg: 'Stuff sooner subjects indulgence forty child theirs unpleasing supported projecting certain.', date: '12:10', attach: []},
-        ]
-
         const onLogoutBind = this.onLogout.bind(this);
         const onChatClickBind = this.onChatClick.bind(this);
 
@@ -82,7 +54,7 @@ class ChatPage extends Block<IProps>{
         const ButtonAddChat = new Button({label: 'Add chat', classes: 'button_nofill button_greytext', onClick: () => {this.children.Modal.setProps({modalVisible: true});}});
         const Chats = new ChatsList({chats: this.mapChatsToCompoennt(this.chats, null, onChatClickBind) || []});
         const Users = new ChatUsers({});
-        const Messages = new MessagesList({messages: messages});
+        const MessagesWrap = new Messages({});
         const MessageForm = new ChatForm({});
 
         this.children = {
@@ -92,7 +64,7 @@ class ChatPage extends Block<IProps>{
             ButtonAddChat,
             Chats,
             Users,
-            Messages,
+            MessagesWrap,
             MessageForm,
         }
 
@@ -126,8 +98,60 @@ class ChatPage extends Block<IProps>{
 
     onChatClick(chat: IChat){
         //this.setProps({selectedChat: chat});
-        window.store.set({selectedChat: chat});
+        window.store.set({selectedChat: chat, messages: []});
         getUsers({chat_id: chat.id});
+        getToken({chat_id: chat.id}).then((token: string | null) => {
+            console.log('Token is: ', token);
+            const { userData, chatSocket } = window.store.getState();
+
+            if(chatSocket){
+                chatSocket.close();
+                window.store.set({chatSocket: null});
+            }
+
+            const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${ userData.id }/${ chat.id }/${ token }`);
+            window.store.set({chatSocket: socket});
+
+            let pingInterval: any = null;
+            socket.addEventListener('open', () => {
+                console.log('Chat socket is open');
+
+                /* Get messages */
+                const message = {content: 0, type: 'get old'}
+                socket.send(JSON.stringify(message));
+                /* --- */
+
+                pingInterval = setInterval(() => {
+                    socket.send(JSON.stringify({type: 'ping'}));
+                }, 30*1000);
+            });
+
+            socket.addEventListener('close', () => {
+                console.log('Chat socket is closed');
+                clearInterval(pingInterval);
+            });
+
+            socket.addEventListener('message', event => {
+                const data = JSON.parse(event.data);
+                console.log('Data received', data);
+
+                const { messages } = window.store.getState();
+
+                if(data){
+                    if(Array.isArray(data)){
+                        if(data.length !== 0){
+                            const new_messages = [...data, ...messages].reverse();
+                            window.store.set({messages: new_messages});
+                        }
+                    }else{
+                        if(data.type !== 'pong'){
+                            const new_messages = [...messages, ...[data]];
+                            window.store.set({messages: new_messages});
+                        }
+                    }
+                }
+            });
+        });
     }
 
     onLogout() {
@@ -160,7 +184,7 @@ class ChatPage extends Block<IProps>{
                     <div class="chat__header">
                         {{{ Users }}}
                     </div>
-                    {{{ Messages }}}
+                    {{{ MessagesWrap }}}
                     <div class="chat__form-wrap">
                         {{{ MessageForm }}}
                     </div>

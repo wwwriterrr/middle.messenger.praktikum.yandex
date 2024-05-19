@@ -29,6 +29,31 @@ export const settings = async (model) => {
     }
 }
 
+export const changePassword = async (model: {oldPassword: string, newPassword: string}) => {
+    window.store.set({isLoading: true});
+    try{
+        const response: any = await userApi.change_password(model);
+        if(response.status !== 200){
+            const responseData = await response.json();
+            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
+            else throw new Error(`Fetch error. Already fix it.`);
+        }
+
+        window.store.set({passwdSuccess: 'Password successfully changed'});
+        setTimeout(() => {
+            window.store.set({passwdSuccess: null});
+        }, 3000);
+        return true;
+    }catch (error) {
+        if(error) window.store.set({userError: error.message});
+        else window.store.set({userError: 'Fetch error'});
+
+        return false;
+    }finally {
+        window.store.set({isLoading: false})
+    }
+}
+
 export const avatar = async (model: FormData) => {
     window.store.set({isLoading: true});
     try{

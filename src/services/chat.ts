@@ -159,14 +159,34 @@ export const deleteUsers = async (model: {users: number[], chatId: number}) => {
             else throw new Error(`Fetch error. Already fix it.`);
         }
 
-        // const { users } = window.store.getState();
-        // const new_users = users.filter(user => model.users.indexOf(user.id) === -1);
-        // console.log('New users', new_users);
-        // window.store.getState({users: new_users, selectedUser: {}});
     }catch (error) {
         if(error) window.store.set({deleteUserError: error.message});
         else window.store.set({deleteUserError: 'Chats fetch error'});
     }finally {
         window.store.set({deleteUserLoading: false});
+    }
+}
+
+export const getToken = async (model: {chat_id: number}) => {
+    window.store.set({tokenLoading: true});
+    try{
+        const response: any = await chatsApi.get_token(model);
+
+        if(response.status !== 200){
+            const responseData = await response.json();
+            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
+            else throw new Error(`Fetch error. Already fix it.`);
+        }
+
+        const data = await response.json();
+        const { token } = data;
+        return token;
+    }catch (error) {
+        if(error) window.store.set({tokenError: error.message});
+        else window.store.set({tokenError: 'Chats fetch error'});
+
+        return null;
+    }finally {
+        window.store.set({tokenLoading: false});
     }
 }
