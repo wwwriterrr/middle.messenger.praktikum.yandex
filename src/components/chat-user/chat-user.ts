@@ -21,7 +21,13 @@ export default class ChatUser extends Block<UserObj>{
             events: {
                 click: () => {
                     const user = {
-                        id: props.id
+                        id: props.id,
+                        avatar: props.avatar,
+                        role: props.role,
+                        first_name: props.first_name,
+                        second_name: props.second_name,
+                        display_name: props.display_name,
+                        login: props.login,
                     }
                     props?.click(user);
                 }

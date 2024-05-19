@@ -2,7 +2,7 @@ import Block from "../../core/Block";
 
 
 type CIProps = {
-    onChange: () => void,
+    onChange?: () => void,
 }
 
 export default class ChatAvatarInput extends Block<CIProps>{

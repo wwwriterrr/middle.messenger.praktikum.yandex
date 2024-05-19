@@ -24,4 +24,5 @@ export { ModalChat } from './modal-chat';
 export { ModalPassword } from './modal-password';
 export { ModalAddChat } from './modal-addchat';
 export { AddUserModal } from './modal-adduser';
+export { UserModal } from './modal-user';
 export { RememberPage, FormRemember } from './form-remember';

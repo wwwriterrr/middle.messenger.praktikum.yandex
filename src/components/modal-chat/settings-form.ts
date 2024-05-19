@@ -2,6 +2,8 @@ import Block from "../../core/Block";
 import { connect } from "../../utils/connect";
 import ChatAvatarInput from "./avatar-input";
 import { setAvatar } from "../../services/chat";
+import { Button } from "../button";
+import { deleteChat } from "../../services/chat";
 
 
 type SProps = {
@@ -20,33 +22,56 @@ class ChatSettingsForm extends Block<SProps>{
 
     init(){
         const onChangeFileBind = this.onChangeFile.bind(this);
+        const onDeleteClickBind = this.onDeleteClick.bind(this);
 
         const AvatarInput = new ChatAvatarInput({onChange: onChangeFileBind});
+        const DeleteButton = new Button({label: 'Delete chat', type: 'button', classes: 'button_delete', onClick: onDeleteClickBind});
 
         this.children = {
             ...this.children,
             AvatarInput,
+            DeleteButton,
         }
     }
 
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
+    componentDidUpdate(): boolean {
         return true;
     }
 
     async onChangeFile (e: Event){
-        const input: HTMLInputElement | null = e.target;
+        const input: EventTarget | null = e.target;
         if(!input) return;
         const file = input.files[0];
         if(!file) return;
 
-        const { settingsChat, selectedChat } = window.store.getState();
+        const { settingsChat, chats } = window.store.getState();
         const data = new FormData();
         data.append('chatId', settingsChat.id);
         data.append('avatar', file);
 
         const newChatData: any = await setAvatar(data);
         const chat: any = {id: newChatData.id, title: newChatData.title, avatar: newChatData.avatar};
-        window.store.set({settingsChat: chat, selectedChat: chat});
+
+        const new_chats: any[] = [];
+        chats.map((item: any) => {
+            const new_item = {...item};
+            if(new_item.id === newChatData.id){
+                new_item.avatar = newChatData.avatar;
+            }
+            new_chats.push(new_item);
+        })
+
+        window.store.set({settingsChat: chat, selectedChat: chat, chats: new_chats});
+
+        // console.log('New chat', newChatData);
+        // console.log('Chats', chats);
+    }
+
+    onDeleteClick(){
+        const { selectedChat } = window.store.getState();
+        const chat_id = selectedChat.id;
+        console.log('delete chat', chat_id);
+        deleteChat({chatId: chat_id});
     }
 
     render() {
@@ -72,6 +97,9 @@ class ChatSettingsForm extends Block<SProps>{
                             {{{ AvatarInput }}}
                             <img class="chat-settings__avatar-preview" src=" ${chatAvatar} " alt="Chat avatar" />
                         </label>
+                    </div>
+                    <div class="chat-settings__row">
+                        {{{ DeleteButton }}}
                     </div>
                     
                     <!--<div class="chat-settings__row">

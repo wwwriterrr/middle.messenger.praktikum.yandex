@@ -20,8 +20,16 @@ export default class ChatsApi {
         return chats_api.put('/users', {data})
     }
 
+    async delete_users(data: {users: number[], chatId: number}){
+        return chats_api.delete('/users', {data})
+    }
+
     async add_chat(data: CreateChat): Promise<void | APIError> {
         return chats_api.post('/', { data });
+    }
+
+    async delete_chat(data: {chatId: number}): Promise<void | APIError> {
+        return chats_api.delete('/', { data });
     }
 
     async set_avatar(data: FormData): Promise<void | APIError> {

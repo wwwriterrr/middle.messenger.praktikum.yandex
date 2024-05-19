@@ -3,7 +3,8 @@ import { connect } from "../../utils/connect";
 import { ChatUser } from "../chat-user";
 import UsersList from "./users-list";
 import { AddUserModal } from "../modal-adduser";
-import {Button} from "../button";
+import { Button } from "../button";
+import { UserModal } from "../modal-user";
 
 
 type UserObj = {
@@ -25,12 +26,14 @@ class ChatUsers extends Block<any>{
 
         const Users = new UsersList({users: this.mapUsersToCompoennt(users, onUserClickBind) || []});
         const Modal = new AddUserModal({});
+        const ModalUser = new UserModal({});
         const AddUserButton = new Button({label: 'Add user', classes: 'button_action', onClick: addUserClickBind})
 
         this.children = {
             ...this.children,
             Users,
             Modal,
+            ModalUser,
             AddUserButton,
         }
     }
@@ -51,8 +54,17 @@ class ChatUsers extends Block<any>{
         return users?.map(({avatar, id, first_name, second_name, display_name, role, login}) =>  new ChatUser({login, role, first_name, second_name, display_name, avatar, click: hundler, id}))
     }
 
-    onUserClick(user: any){
+    onUserClick(user: {
+        id: number,
+        role: string,
+        avatar?: string | null,
+        first_name?: string | null,
+        second_name?: string | null,
+        display_name?: string | null,
+        login: string,
+    }){
         console.log('User click', user);
+        window.store.set({selectedUser: user});
     }
 
     addUserClick(){
@@ -68,6 +80,7 @@ class ChatUsers extends Block<any>{
         return `
             <div class="users-list">
                 {{{ Modal }}}
+                {{{ ModalUser }}}
                 {{#if ${isChatSelected}}}
                     <div class="users-list__title">${ chatTitle }</div>
                     {{{ Users }}}
@@ -82,4 +95,4 @@ class ChatUsers extends Block<any>{
     }
 }
 
-export default connect(({ selectedChat, users }) => ({selectedChat, users}))(ChatUsers);
+export default connect(({ selectedChat, selectedUser, users }) => ({selectedChat, selectedUser, users}))(ChatUsers);

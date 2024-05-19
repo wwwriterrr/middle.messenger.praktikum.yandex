@@ -26,7 +26,7 @@ class ModalChat extends Block<Object>{
     onSubmitForm(e: Event){
         e.preventDefault();
 
-        console.log('save chat');
+        console.log('Prevent default submit');
     }
 
     componentDidUpdate(): boolean {

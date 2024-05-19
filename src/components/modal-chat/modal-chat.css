@@ -37,4 +37,5 @@
         color: #fff;font-weight: 500;
         &::before{content: 'Save';}
     }
+    .button_delete{width: 100%;}
 }

@@ -6,6 +6,7 @@
     &-greytext,
     &_greytext{color: #444;}
     &_hidden{display: none;}
+    &_delete{background-color: #a22626;color: #fff;font-weight: 500;border: 0;}
     &_normweight{font-weight: 400;}
     &_logout{
         display: inline-flex;align-items: center;gap: 4px;color: #a00;font-weight: 400;

@@ -59,7 +59,7 @@ class ChatItem extends Block<IProps>{
         const { selectedChat } = window.store.getState();
         const is_active = selectedChat.id === this.props.id;
         let chatAvatar = (this.props.avatar) ? `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}` : '/public/chat_empty.svg';
-        if(selectedChat.id === this.props.id && selectedChat.avatar) chatAvatar = `https://ya-praktikum.tech/api/v2/resources${selectedChat.avatar}`;
+        //if(selectedChat.id === this.props.id && selectedChat.avatar) chatAvatar = `https://ya-praktikum.tech/api/v2/resources${selectedChat.avatar}`;
 
         const msg: string = (this.props.last_message) ? this.props.last_message : 'No messages';
 
@@ -79,4 +79,4 @@ class ChatItem extends Block<IProps>{
     }
 }
 
-export default connect(({selectedChat, settingsChat}) => ({selectedChat, settingsChat}))(ChatItem)
+export default connect(({selectedChat, settingsChat, chats}) => ({selectedChat, settingsChat, chats}))(ChatItem)
