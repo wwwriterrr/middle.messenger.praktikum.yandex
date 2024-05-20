@@ -2,13 +2,10 @@
 
 import Block from "../../core/Block";
 import { connect } from "../../utils/connect";
+import { TUser } from "../../api/type.ts";
 
 
-interface IProps{
-    users: any,
-}
-
-class UsersList extends Block<IProps>{
+class UsersList extends Block<TUser>{
 
     render(): string {
         return `
@@ -20,4 +17,3 @@ class UsersList extends Block<IProps>{
 }
 
 export default connect(({users}) => ({users}))(UsersList);
-

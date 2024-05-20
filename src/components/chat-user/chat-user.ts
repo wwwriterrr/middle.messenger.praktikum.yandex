@@ -1,22 +1,15 @@
+//@ts-nocheck
+
 import Block from "../../core/Block";
+import { apiUrl } from "../../api/type";
+import { TUser } from "../../api/type";
 
 
-type UserObj = {
-    id: number,
-    first_name: string,
-    second_name: string,
-    display_name: string | null,
-    avatar: string | null,
-    login: string,
-    role: string,
-    click?: any
-}
-
-export default class ChatUser extends Block<UserObj>{
-    constructor(props: UserObj) {
+export default class ChatUser extends Block<TUser>{
+    constructor(props: TUser) {
         super({
             ...props,
-            userAvatar: (props.avatar) ? `https://ya-praktikum.tech/api/v2/resources${props.avatar}` : '/public/noavatar.svg',
+            userAvatar: (props.avatar) ? `${apiUrl}/resources${props.avatar}` : '/public/noavatar.svg',
             userName: (props.display_name) ? props.display_name : (props.first_name) ? `${props.first_name} ${props.second_name}` : props.login,
             events: {
                 click: () => {

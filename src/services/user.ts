@@ -1,6 +1,8 @@
 //@ts-nocheck
 
 import UserApi from "../api/user";
+import { apiUrl } from "../api/type";
+import { checkResponse } from "./utils";
 
 
 const userApi = new UserApi();
@@ -9,11 +11,8 @@ export const settings = async (model) => {
     window.store.set({isLoading: true});
     try{
         const response: any = await userApi.settings(model);
-        if(response.status !== 200){
-            const responseData = await response.json();
-            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
-            else throw new Error(`Fetch error. Already fix it.`);
-        }
+
+        await checkResponse(response);
 
         const responseData = await response.json();
         window.store.set({userData: responseData});
@@ -32,12 +31,9 @@ export const settings = async (model) => {
 export const changePassword = async (model: {oldPassword: string, newPassword: string}) => {
     window.store.set({isLoading: true});
     try{
-        const response: any = await userApi.change_password(model);
-        if(response.status !== 200){
-            const responseData = await response.json();
-            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
-            else throw new Error(`Fetch error. Already fix it.`);
-        }
+        const response: any = await userApi.changePassword(model);
+
+        await checkResponse(response);
 
         window.store.set({passwdSuccess: 'Password successfully changed'});
         setTimeout(() => {
@@ -58,14 +54,11 @@ export const avatar = async (model: FormData) => {
     window.store.set({isLoading: true});
     try{
         const response = await userApi.avatar(model);
-        if(response.status !== 200){
-            const responseData = await response.json();
-            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
-            else throw new Error(`Fetch error. Already fix it.`);
-        }
+
+        await checkResponse(response);
 
         const responseData = await response.json();
-        window.store.set({userData: responseData, userAvatar: `https://ya-praktikum.tech/api/v2/resources${responseData.avatar}`});
+        window.store.set({userData: responseData, userAvatar: `${apiUrl}/resources${responseData.avatar}`});
 
         return true;
     }catch (error) {

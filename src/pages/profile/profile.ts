@@ -3,7 +3,8 @@
 import Block from "../../core/Block";
 import { FormProfile, ModalWrap, ModalAvatar, AvatarButton } from "../../components";
 import isEqual from 'lodash/isEqual';
-import { connect } from "../../utils/connect.ts";
+import { connect } from "../../utils/connect";
+import { apiUrl } from "../../api/type";
 
 
 interface IProps {
@@ -29,7 +30,7 @@ class ProfilePage extends Block<IProps>{
         const { userData } = window.store.getState();
         //if(!user) window.router.go('/login');
 
-        const userAvatar = (userData.avatar) ? `https://ya-praktikum.tech/api/v2/resources${userData.avatar}` : '/public/av1.jpg';
+        const userAvatar = (userData.avatar) ? `${apiUrl}/resources${userData.avatar}` : '/public/av1.jpg';
         window.store.set({userAvatar: userAvatar});
 
         this.setProps({nickname: userData.display_name, userAvatar: window.store.getState().userAvatar});

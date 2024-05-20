@@ -2,7 +2,7 @@
 
 import ChatsApi from "../api/chat";
 import { CreateChat } from "../api/type";
-import {get} from "lodash";
+import { checkResponse } from "./utils";
 
 
 const chatsApi = new ChatsApi();
@@ -10,13 +10,9 @@ const chatsApi = new ChatsApi();
 export const getChats = async () => {
     window.store.set({chatsLoading: true});
     try{
-        const response: any = await chatsApi.get_chats();
+        const response: any = await chatsApi.getChats();
 
-        if(response.status !== 200){
-            const responseData = await response.json();
-            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
-            else throw new Error(`Fetch error. Already fix it.`);
-        }
+        await checkResponse(response);
 
         const responseData = await response.json();
         window.store.set({chats: responseData});
@@ -31,13 +27,9 @@ export const getChats = async () => {
 export const addChat = async (model: CreateChat) => {
     window.store.set({addChatLoading: true});
     try{
-        const response: any = await chatsApi.add_chat(model);
+        const response: any = await chatsApi.addChat(model);
 
-        if(response.status !== 200){
-            const responseData = await response.json();
-            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
-            else throw new Error(`Fetch error. Already fix it.`);
-        }
+        await checkResponse(response);
 
         const responseData = await response.json();
 
@@ -59,13 +51,9 @@ export const addChat = async (model: CreateChat) => {
 export const deleteChat = async (model: {chatId: number}) => {
     window.store.set({settingsChatLoading: true});
     try{
-        const response: any = await chatsApi.delete_chat(model);
+        const response: any = await chatsApi.deleteChat(model);
 
-        if(response.status !== 200){
-            const responseData = await response.json();
-            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
-            else throw new Error(`Fetch error. Already fix it.`);
-        }
+        await checkResponse(response);
 
         const { selectedChat, chats } = window.store.getState();
         const new_chats = chats.filter(chat => chat.id !== selectedChat.id);
@@ -85,13 +73,9 @@ export const deleteChat = async (model: {chatId: number}) => {
 export const setAvatar = async (model: FormData) => {
     window.store.set({settingsChatLoading: true});
     try{
-        const response: any = await chatsApi.set_avatar(model);
+        const response: any = await chatsApi.setAvatar(model);
 
-        if(response.status !== 200){
-            const responseData = await response.json();
-            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
-            else throw new Error(`Fetch error. Already fix it.`);
-        }
+        await checkResponse(response);
 
         const responseData = await response.json();
 
@@ -108,13 +92,9 @@ export const setAvatar = async (model: FormData) => {
 export const getUsers = async (model: {chat_id: number}) => {
     window.store.set({usersLoading: true});
     try{
-        const response: any = await chatsApi.get_users(model);
+        const response: any = await chatsApi.getUsers(model);
 
-        if(response.status !== 200){
-            const responseData = await response.json();
-            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
-            else throw new Error(`Fetch error. Already fix it.`);
-        }
+        await checkResponse(response);
 
         const responseData = await response.json();
         window.store.set({users: responseData});
@@ -129,13 +109,9 @@ export const getUsers = async (model: {chat_id: number}) => {
 export const addUsers = async (model: {users: number[], chatId: number}) => {
     window.store.set({addUserLoading: true});
     try{
-        const response: any = await chatsApi.add_users(model);
+        const response: any = await chatsApi.addUsers(model);
 
-        if(response.status !== 200){
-            const responseData = await response.json();
-            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
-            else throw new Error(`Fetch error. Already fix it.`);
-        }
+        await checkResponse(response);
 
         //const responseData = await response.json();
         window.store.set({addUserSuccess: 'Users successfully added'});
@@ -151,13 +127,9 @@ export const addUsers = async (model: {users: number[], chatId: number}) => {
 export const deleteUsers = async (model: {users: number[], chatId: number}) => {
     window.store.set({deleteUserLoading: true});
     try{
-        const response: any = await chatsApi.delete_users(model);
+        const response: any = await chatsApi.deleteUsers(model);
 
-        if(response.status !== 200){
-            const responseData = await response.json();
-            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
-            else throw new Error(`Fetch error. Already fix it.`);
-        }
+        await checkResponse(response);
 
     }catch (error) {
         if(error) window.store.set({deleteUserError: error.message});
@@ -170,13 +142,9 @@ export const deleteUsers = async (model: {users: number[], chatId: number}) => {
 export const getToken = async (model: {chat_id: number}) => {
     window.store.set({tokenLoading: true});
     try{
-        const response: any = await chatsApi.get_token(model);
+        const response: any = await chatsApi.getToken(model);
 
-        if(response.status !== 200){
-            const responseData = await response.json();
-            if('reason' in responseData) throw new Error(`Request error: ${responseData.reason}`);
-            else throw new Error(`Fetch error. Already fix it.`);
-        }
+        await checkResponse(response);
 
         const data = await response.json();
         const { token } = data;

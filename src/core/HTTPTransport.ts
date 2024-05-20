@@ -8,13 +8,15 @@ enum METHOD {
     PUT = 'PUT',
     PATCH = 'PATCH',
     DELETE = 'DELETE'
-};
+}
 
 type Options = {
     method: METHOD;
     data?: any;
     timeout?: number,
 };
+
+type HTTPMethod = <R=unknown>(url: string, options?: Options) => Promise<R>
 
 
 export class HTTPTransport {
@@ -40,6 +42,9 @@ export class HTTPTransport {
             headers: response_headers,
             body: request_data,
         });
+        if(!response.ok){
+            await Promise.reject(`Error ${res.status}`);
+        }
 
         // const isJson = response.headers.get('content-type')?.includes('application/json');
         // const resultData = await isJson ? response.json() : null
@@ -49,19 +54,19 @@ export class HTTPTransport {
         return response as unknown as TResponse;
     };
 
-    get<TResponse>(url: string, options: Options = { method: METHOD.GET }): Promise<TResponse> {
-        return this.request(`${this.apiUrl}${url}`, {...options, method: METHOD.GET})
-    }
+    get: HTTPMethod = (url: string, options: Options = { method: METHOD.GET }) => (
+        this.request(`${this.apiUrl}${url}`, {...options, method: METHOD.GET})
+    )
 
-    put<TResponse>(url: string, options: Options = { method: METHOD.GET }): Promise<TResponse> {
-        return this.request(`${this.apiUrl}${url}`, {...options, method: METHOD.PUT})
-    }
+    put: HTTPMethod = (url: string, options: Options = { method: METHOD.GET }) => (
+        this.request(`${this.apiUrl}${url}`, {...options, method: METHOD.PUT})
+    )
 
-    post<TResponse>(url: string, options: Options = { method: METHOD.GET }): Promise<TResponse> {
-        return this.request(`${this.apiUrl}${url}`, {...options, method: METHOD.POST})
-    }
+    post: HTTPMethod = (url: string, options: Options = { method: METHOD.GET }) => (
+        this.request(`${this.apiUrl}${url}`, {...options, method: METHOD.POST})
+    )
 
-    delete<TResponse>(url: string, options: Options = { method: METHOD.GET }): Promise<TResponse> {
-        return this.request(`${this.apiUrl}${url}`, {...options, method: METHOD.DELETE})
-    }
+    delete: HTTPMethod = (url: string, options: Options = { method: METHOD.GET }) => (
+        this.request(`${this.apiUrl}${url}`, {...options, method: METHOD.DELETE})
+    )
 }

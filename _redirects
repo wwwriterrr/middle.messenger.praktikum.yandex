@@ -1,0 +1,6 @@
+# Rewrite a path
+/messenger              /   200
+/settings               /   200
+/login                  /   200
+/sign-up                /   200
+/remember-password      /   200

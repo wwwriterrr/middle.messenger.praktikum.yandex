@@ -132,23 +132,27 @@ class ChatPage extends Block<IProps>{
             });
 
             socket.addEventListener('message', event => {
-                const data = JSON.parse(event.data);
-                console.log('Data received', data);
+                try{
+                    const data = JSON.parse(event.data);
+                    console.log('Data received', data);
 
-                const { messages } = window.store.getState();
+                    const { messages } = window.store.getState();
 
-                if(data){
-                    if(Array.isArray(data)){
-                        if(data.length !== 0){
-                            const new_messages = [...data, ...messages].reverse();
-                            window.store.set({messages: new_messages});
-                        }
-                    }else{
-                        if(data.type !== 'pong'){
-                            const new_messages = [...messages, ...[data]];
-                            window.store.set({messages: new_messages});
+                    if(data){
+                        if(Array.isArray(data)){
+                            if(data.length !== 0){
+                                const new_messages = [...data, ...messages].reverse();
+                                window.store.set({messages: new_messages});
+                            }
+                        }else{
+                            if(data.type !== 'pong'){
+                                const new_messages = [...messages, ...[data]];
+                                window.store.set({messages: new_messages});
+                            }
                         }
                     }
+                }catch (error: Error) {
+                    console.log('Data parse error', error.message);
                 }
             });
         });

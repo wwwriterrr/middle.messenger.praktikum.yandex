@@ -23,8 +23,9 @@ class ChatForm extends Block{
         const onSendBind = this.onSend.bind(this);
         const onInputBind = this.onInput.bind(this);
         const onAttachOpenBind = this.onAttachOpen.bind(this);
+        const onInputKeydownBind = this.onInputKeydown.bind(this);
 
-        const InputMessage = new MessageInput({type: 'text', name: 'message', placeholder: 'Your message', classes: '', onBlur: onInputBlurBind, onInput: onInputBind});
+        const InputMessage = new MessageInput({type: 'text', name: 'message', placeholder: 'Your message', classes: '', onBlur: onInputBlurBind, onInput: onInputBind, onKeyDown: onInputKeydownBind});
         const ButtonAttach = new ChatButton({classes: 'chat__form-attach-btn', type: 'button', onClick: onAttachOpenBind});
         const SendButton = new ChatButton({classes: 'chat__form-submit', type: 'submit', onClick: onSendBind});
         const ModalAttach = new AttachModal({});
@@ -43,6 +44,15 @@ class ChatForm extends Block{
         const value = e.target.value;
 
         input.setProps({value: value, classes: ''});
+    }
+
+    onInputKeydown(e: Event) {
+        if(e.keyCode === 13){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            this.children.SendButton.getContent().click();
+        }
     }
 
     onSend(){

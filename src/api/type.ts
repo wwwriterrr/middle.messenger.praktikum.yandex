@@ -19,6 +19,35 @@ export type UserDTO = {
     email: string;
 };
 
+export type TUser = {
+    id: number;
+    login: string;
+    first_name?: string | null;
+    second_name?: string | null;
+    display_name?: string | null;
+    avatar?: string | null;
+    phone?: string | null;
+    email?: string | null;
+    click?: () => void;
+    role?: string,
+};
+
+export type TMessage = {
+    id: number,
+    content: string,
+    user_id: number,
+    time: string,
+    file?: {
+        id: number,
+        user_id: number
+        path: string,
+        filename: string,
+        content_type: string,
+        content_size: number,
+        upload_date: string,
+    }
+}
+
 export type CreateUser = Omit<UserDTO, 'avatar' | 'display_name' | 'id'>  & {
     password: string
 }
@@ -45,3 +74,5 @@ export type ChatDTO = {
     unread_count: number,
     last_message: LastMessage | null
 }
+
+export const apiUrl: string = 'https://ya-praktikum.tech/api/v2';
