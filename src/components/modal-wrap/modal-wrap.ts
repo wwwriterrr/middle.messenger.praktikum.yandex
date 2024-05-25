@@ -12,17 +12,16 @@ interface IProps{
 export default class ModalWrap extends Block<IProps>{
     constructor(props: IProps) {
         super(props);
-
     }
 
     init(){
         const onClickCloseBtnBind = this.onClickCloseBtn.bind(this);
 
-        const ModalClose = new ModalCloseBtn({onClick: onClickCloseBtnBind})
+        const ModalClose = new ModalCloseBtn({onClick: onClickCloseBtnBind});
 
         this.children = {
             ...this.children,
-            ModalClose
+            ModalClose,
         }
     }
 

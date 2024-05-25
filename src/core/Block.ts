@@ -169,24 +169,69 @@ export default class Block<Props extends object> {
             propsAndStubs[key] = `<div data-id="${child._id}"></div>`
         });
 
+        const childrenProps = [];
+        Object.entries(propsAndStubs).forEach(([key, value]) => {
+            if(Array.isArray(value)) {
+                propsAndStubs[key] = value.map((item) => {
+                    if(item instanceof Block) {
+                        childrenProps.push(item)
+                        return `<div data-id="${item._id}"></div>`
+                    }
+
+                    return item;
+                }).join('')
+            }
+        });
         const fragment = this._createDocumentElement('template');
 
         fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
         const newElement = fragment.content.firstElementChild;
 
-        Object.values(this.children).forEach(child => {
+        [...Object.values(this.children), ...childrenProps].forEach(child => {
             const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
 
             stub?.replaceWith(child.getContent());
         });
 
+
         if (this._element) {
+            // console.log('old', this._element, this._element.style.display);
+            // console.log('new', newElement.style.display);
+            // newElement.style.display = this._element.style.display
             this._element.replaceWith(newElement);
         }
 
         this._element = newElement;
 
         this._addEvents();
+
+        // const propsAndStubs = { ...this.props };
+        //
+        // Object.entries(this.children).forEach(([key, child]) => {
+        //     propsAndStubs[key] = `<div data-id="${child._id}"></div>`
+        // });
+        //
+        // const fragment = this._createDocumentElement('template');
+        //
+        // fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
+        // const newElement = fragment.content.firstElementChild;
+        //
+        // Object.values(this.children).forEach(child => {
+        //     const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+        //
+        //     stub?.replaceWith(child.getContent());
+        // });
+        //
+        // if (this._element) {
+        //     console.log('old', this._element, this._element.style.display);
+        //     console.log('new', newElement.style.display);
+        //     //newElement.style.display = this._element.style.display;
+        //     this._element.replaceWith(newElement);
+        // }
+        //
+        // this._element = newElement;
+        //
+        // this._addEvents();
     }
 
     render() {}
@@ -258,11 +303,11 @@ export default class Block<Props extends object> {
         return document.createElement(tagName);
     }
 
-    /*show() {
+    show() {
         this.getContent().style.display = "block";
     }
 
     hide() {
         this.getContent().style.display = "none";
-    }*/
+    }
 }

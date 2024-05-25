@@ -4,9 +4,10 @@ import Block from "../../core/Block";
 import ChatButton from "./chat-form-button";
 import MessageInput from "./message-input";
 import AttachModal from "../attach_modal/attach-modal";
+import { connect } from "../../utils/connect";
 
 
-export default class ChatForm extends Block{
+class ChatForm extends Block{
     constructor(props) {
         super({
             ...props,
@@ -22,8 +23,9 @@ export default class ChatForm extends Block{
         const onSendBind = this.onSend.bind(this);
         const onInputBind = this.onInput.bind(this);
         const onAttachOpenBind = this.onAttachOpen.bind(this);
+        const onInputKeydownBind = this.onInputKeydown.bind(this);
 
-        const InputMessage = new MessageInput({type: 'text', name: 'message', placeholder: 'Your message', classes: '', onBlur: onInputBlurBind, onInput: onInputBind});
+        const InputMessage = new MessageInput({type: 'text', name: 'message', placeholder: 'Your message', classes: '', onBlur: onInputBlurBind, onInput: onInputBind, onKeyDown: onInputKeydownBind});
         const ButtonAttach = new ChatButton({classes: 'chat__form-attach-btn', type: 'button', onClick: onAttachOpenBind});
         const SendButton = new ChatButton({classes: 'chat__form-submit', type: 'submit', onClick: onSendBind});
         const ModalAttach = new AttachModal({});
@@ -44,6 +46,15 @@ export default class ChatForm extends Block{
         input.setProps({value: value, classes: ''});
     }
 
+    onInputKeydown(e: Event) {
+        if(e.keyCode === 13){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            this.children.SendButton.getContent().click();
+        }
+    }
+
     onSend(){
         const input = this.children.InputMessage;
         const value = input.props.value;
@@ -56,6 +67,13 @@ export default class ChatForm extends Block{
         input.setProps({value: value, classes: '', placeholder: 'Your message'});
 
         console.log('Send message', {message: value});
+
+        const { chatSocket } = window.store.getState();
+        if(chatSocket){
+            const message = {content: value, type: 'message'};
+            chatSocket.send(JSON.stringify(message));
+            input.setProps({value: ''});
+        }
     }
 
     onInput(){
@@ -72,8 +90,11 @@ export default class ChatForm extends Block{
     }
 
     render() {
+        const { selectedChat } = window.store.getState();
+        const is_visible = selectedChat.id;
+
         return `
-            <form class="chat__form {{classes}}">
+            <form class="chat__form {{classes}}" style="display: {{#if ${ is_visible }}}grid{{else}}none{{/if}}">
                 <div class="chat__form-avatar-wrap"><img class="chat__form-avatar" src="/public/av1.jpg" alt=""></div>
                 {{{ ButtonAttach }}}
                 {{{ InputMessage }}}
@@ -83,3 +104,5 @@ export default class ChatForm extends Block{
         `
     }
 }
+
+export default connect(({ selectedChat }) => ({selectedChat}))(ChatForm);

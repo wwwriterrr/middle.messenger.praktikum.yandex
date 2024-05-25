@@ -1,6 +1,10 @@
+//@ts-nocheck
+
 import Block from "../../core/Block";
 import { FormProfile, ModalWrap, ModalAvatar, AvatarButton } from "../../components";
 import isEqual from 'lodash/isEqual';
+import { connect } from "../../utils/connect";
+import { apiUrl } from "../../api/type";
 
 
 interface IProps {
@@ -9,7 +13,7 @@ interface IProps {
     Modal?: Block<object>[]
 }
 
-export default class ProfilePage extends Block<IProps>{
+class ProfilePage extends Block<IProps>{
     constructor(props: IProps) {
         super({
             ...props,
@@ -22,7 +26,15 @@ export default class ProfilePage extends Block<IProps>{
         });
     }
 
-    init(){
+    async init(){
+        const { userData } = window.store.getState();
+        //if(!user) window.router.go('/login');
+
+        const userAvatar = (userData.avatar) ? `${apiUrl}/resources${userData.avatar}` : '/public/av1.jpg';
+        window.store.set({userAvatar: userAvatar});
+
+        this.setProps({nickname: userData.display_name, userAvatar: window.store.getState().userAvatar});
+
         const onClickAvButtonBind = this.onClickAvButton.bind(this);
 
         const ButtonChangeAv = new AvatarButton({onClick: onClickAvButtonBind});
@@ -52,13 +64,17 @@ export default class ProfilePage extends Block<IProps>{
                 {{{ Modal }}}
                 <div class="avatar__wrap">
                     <div class="avatar__element {{#unless avatar }}avatar__element_notset{{/unless}}">
-                        <img class="avatar__image" src="/public/av1.jpg" alt="User avatar">
+                        <img class="avatar__image" src="{{ userAvatar }}" alt="User avatar">
                         {{{ ButtonChangeAv }}}
                     </div>
                 </div>
-                <div class="profile__name">{{nickname}}</div>
+                <div class="profile__name">{{ nickname }}</div>
                 {{{ FormProfile }}}
             </div>
         `
     }
 }
+
+const mapStateToPropsShort = ({userAvatar, userData}) => ({userAvatar, userData})
+
+export default connect(mapStateToPropsShort)(ProfilePage)

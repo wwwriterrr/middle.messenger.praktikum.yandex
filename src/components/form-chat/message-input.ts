@@ -4,6 +4,7 @@ import Block from "../../core/Block";
 interface IProps{
     onBlur?: () => void,
     onInput?: () => void,
+    onKeyDown?: () => void,
     classes?: string,
     type?: string,
     name: string,
@@ -17,7 +18,8 @@ export default class MessageInput extends Block <IProps>{
             ...props,
             events: {
                 blur: props.onBlur || (() => {}),
-                input: props.onInput || (() => {})
+                input: props.onInput || (() => {}),
+                keydown: props.onKeyDown || (() => {}),
             }
         });
     }

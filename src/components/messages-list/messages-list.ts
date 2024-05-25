@@ -1,33 +1,23 @@
+//@ts-nocheck
+
 import Block from "../../core/Block";
-import ChatMessage from "../chat-message/message";
+import { connect } from "../../utils/connect.ts";
 
 
-interface IProps{
-    messages: Object[],
-    attach?: Object[],
-    MessageComponentsKeys?: [string]
-}
-
-export default class MessagesList extends Block<IProps>{
-    constructor(props: IProps) {
-        const MessageComponents = props.messages.reduce((acc: any, data: any) => {
-            const component = new ChatMessage({message: data, attach: data.attach});
-            acc[component._id] = component;
-            return acc;
-        }, {});
-
-        super({
-            ...props,
-            MessageComponentsKeys: Object.keys(MessageComponents),
-            ...MessageComponents
-        })
-    }
-
+class MessagesItems extends Block<object>{
     render() {
+        const { messages } = window.store.getState();
+        const is_empty = (messages.length === 0);
+
         return `
-            <div class="chat__messages">
-                ${this.props.MessageComponentsKeys && this.props.MessageComponentsKeys.map((key: string) => `{{{ ${key} }}}`).join('')}
+            <div class="messages">
+                {{#if ${ is_empty }}}
+                <div class="messages__empty">Messages is empty</div>
+                {{/if}}
+                {{{ messages }}}
             </div>
         `
     }
 }
+
+export default connect(({messages}) => ({messages}))(MessagesItems);

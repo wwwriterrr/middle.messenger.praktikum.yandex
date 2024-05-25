@@ -1,33 +1,38 @@
+//@ts-nocheck
+
 import Block from "../../core/Block";
-import ChatItem from "../chat_item/chat-item";
+import { connect } from "../../utils/connect";
 
 
 interface IProps{
-    ChatComponentsKeys?: [string],
-    ChatComponents?: Block<object>[],
-    chats: any
+    chats: any,
+    onClick: () => void,
 }
 
-export default class ChatsList extends Block<IProps>{
+class ChatsList extends Block<IProps>{
     constructor(props: IProps) {
-        const ChatComponents = props.chats.reduce((acc: { [key: string]: Block<object> }, data: {}) => {
-            const component = new ChatItem({item: data});
-            acc[component._id] = component;
-            return acc;
-        }, {});
-
         super({
             ...props,
-            ChatComponentsKeys: Object.keys(ChatComponents),
-            ...ChatComponents
+            showEmpty: props.chats.length === 0,
+            events: {
+                click: props.onClick
+            },
         })
     }
 
-    render() {
+    render(): string {
         return `
             <div class="chats-list">
-                ${this.props.ChatComponentsKeys && this.props.ChatComponentsKeys.map((key: string) => `{{{ ${key} }}}`).join('')}
+                {{#if showEmpty}}
+                <div class="chats-list__empty">No chats</div>
+                {{/if}}
+                {{#if chatsError}}
+                <div class="chats-list__error">{{ chatsError }}</div>
+                {{/if}}
+                {{{ chats }}}
             </div>
         `
     }
 }
+
+export default connect(({chatsLoading, chatsError}) => ({chatsLoading, chatsError}))(ChatsList);

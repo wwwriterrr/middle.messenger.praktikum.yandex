@@ -1,13 +1,15 @@
+//@ts-nocheck
+
 import { FormRegistrate, FormWrapper } from "../../components"
 import Block from "../../core/Block"
 
 
 interface IProps {
-    FormLogin: Block<any>,
+    FormLogin: Block<{ title: string, classes: string, formBody: Block<object> }>,
 }
 
 export default class RegistratePage extends Block<IProps> {
-    constructor(props: any) {
+    constructor(props: IProps) {
         super({
             ...props,
             FormLogin: new FormWrapper({

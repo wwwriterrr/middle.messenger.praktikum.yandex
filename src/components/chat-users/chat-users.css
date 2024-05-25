@@ -1,0 +1,22 @@
+.users-list{
+    position: relative;display: flex;align-items: center;gap: 14px; padding: 10px 20px;
+    &__title{font-size: .8em;font-weight: 500;}
+    &__nochat{opacity: .7;font-size: .8em;}
+    &__manage{
+        .button{padding: 0 14px;border-radius: 30px;}
+    }
+}
+
+.users-items{
+    display: flex;flex-wrap: wrap;align-items: center;gap: 10px;
+    .button{padding: 0 14px;}
+}
+
+.chat-user{
+    position: relative;display: flex;align-items: center;gap: 6px;padding: 4px 16px 4px 4px;border-radius: 30px;
+    background-color: #e3e3e3;cursor: pointer;
+    &_admin{background-color: #afeca6}
+    *{cursor: pointer;}
+    &__avatar{width: 34px;aspect-ratio: 1/1;border-radius: 50%;}
+    &__name{font-weight: 400;}
+}

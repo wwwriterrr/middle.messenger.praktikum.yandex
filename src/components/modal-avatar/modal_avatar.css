@@ -8,4 +8,6 @@
     }
     &__input{display: none;}
     &__preview-wrap{display: none;}
+    .button{width: 100%;margin: 14px 0 0 0;}
+    &__error{margin: 0 0 14px 0;color: red;font-weight: 400;}
 }

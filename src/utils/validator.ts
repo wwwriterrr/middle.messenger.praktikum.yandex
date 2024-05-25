@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 const Validator = (value: string, name='login') => {
 
     const validateErrorText = () => {

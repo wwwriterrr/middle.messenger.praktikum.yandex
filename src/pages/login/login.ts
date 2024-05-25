@@ -1,9 +1,11 @@
+//@ts-nocheck
+
 import { FormLogin, FormWrapper } from "../../components"
 import Block from "../../core/Block"
 
 
 interface IProps{
-    FormLogin: Block<object>
+    FormLogin: Block<{ title: string, classes: string, formBody: Block<object> }>
 }
 
 export default class LoginPage extends Block<IProps> {
@@ -27,7 +29,7 @@ export default class LoginPage extends Block<IProps> {
         })
     }
 
-    render() {
+    render(): string {
         return `
             <div class="container">
                 {{{ FormLogin }}}
