@@ -2,6 +2,7 @@ import { expect } from "chai";
 import sinon from 'sinon';
 import Block from "./Block";
 
+
 interface Props {
     text?: string,
     events?: Record<string, () => void>

@@ -47,7 +47,7 @@
     &_self{
 
     }
-    &_self &__wrap{background-color: #d0d4e1;background-image: linear-gradient(45deg, #cfe4ff, #d9c5f0);}
+    &_self &__wrap{background-color: #d0d4e1;background-image: linear-gradient(45deg, #d0d4e1 40%, #f0d9ff);}
     &__avatar{grid-area: av;width: 100%;aspect-ratio: 1/1;border-radius: 50%; background-color: #e3e3e3;font-size: 0;}
     &__wrap{grid-area: msg;justify-self: start;display: inline-flex;flex-direction: column;gap: 10px;padding: 14px;border-radius: 10px; background-color: #e3e3e3;max-width: 500px;}
     &__head{display: flex;justify-content: space-between;align-items: flex-end;gap: 14px;}

@@ -22,7 +22,9 @@ export const login = async (model) => {
         // Set user info to store
         // window.store.set({user: {id: 'test'}});
 
-        // Chat redirect
+        // Check authenticate and set Cookie
+        await is_authenticated();
+        // Redirect from login page to caht
         await window.router.go('/messenger');
 
     } catch (error) {
