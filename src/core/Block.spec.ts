@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { expect } from "chai";
 import sinon from 'sinon';
 import Block from "./Block";

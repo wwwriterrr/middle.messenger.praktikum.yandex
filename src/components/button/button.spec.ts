@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { expect } from "chai";
 // import sinon from 'sinon';
 import {Button} from "./index.ts";
@@ -6,7 +8,7 @@ import Handlebars from 'handlebars';
 
 describe('Button component', () => {
     before(() => {
-        Handlebars.registerHelper('if_eq', function(a, b, opts) {
+        Handlebars.registerHelper('if_eq', function(a, b, opts): any {
             const t: unknown = this;
             if (a == b) {
                 return opts.fn(t);

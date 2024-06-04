@@ -1,5 +1,7 @@
+//@ts-nocheck
+
 import { expect } from "chai";
-import sinon from 'sinon';
+// import sinon from 'sinon';
 import Router from "./Router";
 import * as Pages from "../pages";
 
