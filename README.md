@@ -45,4 +45,4 @@
 
 Ветка Deploy данного репозитория подключена к сервису Netlify, проект доступен по ссылке:
 
-<a href="https://zeusapp.netlify.app/" target="_blank">zeusapp.netlify.app</a>
+<a href="https://endearing-elf-8db9e7.netlify.app" target="_blank">endearing-elf-8db9e7.netlify.app</a>
