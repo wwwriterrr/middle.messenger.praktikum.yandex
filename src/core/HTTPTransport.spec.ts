@@ -11,7 +11,8 @@ describe('HTTPTransport', () => {
         const http = new HTTPTransport('/chats');
         const requestStub = sinon.stub(http, 'request').resolves();
 
-        await http.get('', {data: { a: 'aaa', b: 'bbb' }});
+        const requestData: any = {data: {a: 'aaa', b: 'bbb'}};
+        await http.get('', requestData);
 
         const expectedUrl = `${HOST}/chats?a=aaa&b=bbb`;
 
