@@ -5,11 +5,12 @@
         .profile-row__label::before{content: '*';position: absolute;left: -10px;top: 2px; font-weight: 800;}
         .profile-row__input{color: var(--red-color);}
     }
-    &__wrap{display: flex;align-items: center;justify-content: space-between;padding: 10px 10px;border-bottom: 1px solid #e3e3e3;}
+    &__wrap{display: flex;align-items: center;justify-content: space-between;padding: 10px;border-bottom: 1px solid #e3e3e3;}
     &__label{position: relative;font-weight: 500;}
     &__input{border: 0;padding: 0;width: auto; text-align: right;}
+
     &__error{
-        padding: 0 10px;margin: 2px 0 0 0;font-size: .9em;font-weight: 400;
+        padding: 0 10px;margin: 2px 0 0;font-size: .9em;font-weight: 400;
         &:empty{margin: 0;}
     }
 }
