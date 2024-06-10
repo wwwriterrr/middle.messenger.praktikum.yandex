@@ -18,6 +18,10 @@
 
 Отправка и получение сообщений происходит через WebSocket.
 
+В проект добавлены тесты с использованием библиотек `Mocha` и `Chai`. Тестируемые компоненты и модули: `button`, `Block`, `HTTPTransport`, `Router`.
+
+Настроен pre-commit с использованием библиотеки `Husky`. При прекоммите происходит линтинг файлов проекта.
+
 ## Установка
 
 1. Клонирование репозитория:
@@ -32,12 +36,14 @@
    - ```npm install``` - установка окружения;
    - ```npm run prebuild``` - проверка наличия ошибок в проекте (запускается команда ```tsc --noEmit```);
    - ```npm run linting``` - запуск ESLint в корне проекта, проверка линтинга;
+   - ```npm run stylelinting``` - запуск Stylelint в корне проекта, проверка линтинга стилей;
    - ```npm run build``` - сборка проекта с помощью Vite;
    - ```npm run start``` - запуск проекта;
    - ```npm run dev``` - запуск проекта в режиме разработки;
+   - ```npm run test``` - запуск тестов;
 
 ## Netlify
 
 Ветка Deploy данного репозитория подключена к сервису Netlify, проект доступен по ссылке:
 
-<a href="https://zeusapp.netlify.app/" target="_blank">zeusapp.netlify.app</a>
+<a href="https://endearing-elf-8db9e7.netlify.app" target="_blank">endearing-elf-8db9e7.netlify.app</a>

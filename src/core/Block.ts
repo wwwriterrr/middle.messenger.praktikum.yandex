@@ -5,7 +5,18 @@ import {nanoid} from 'nanoid';
 import Handlebars from "handlebars";
 import Validator from "../utils/validator";
 
-export default class Block<Props extends object> {
+
+
+export type RefType = {
+    [key: string]: Element | Block<object>
+}
+
+export interface BlockClass<P extends object, R extends RefType> extends Function {
+    new (props: P): Block<P, R>;
+    componentName?: string;
+}
+
+export default class Block<Props extends object, Refs extends RefType = RefType> {
     static EVENTS = {
         INIT: "init",
         FLOW_CDM: "flow:component-did-mount",

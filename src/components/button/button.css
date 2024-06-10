@@ -3,33 +3,41 @@
     &_action{background-color: var(--action-color);color: var(--action-font);border: 0;font-weight: 400;}
     &_nofill{height: auto;padding: 2px 4px;background-color: transparent;color: var(--action-color);font-weight: 500;border: 0;}
     &_red{color: var(--red-color);}
+
     &-greytext,
     &_greytext{color: #444;}
     &_hidden{display: none;}
     &_delete{background-color: #a22626;color: #fff;font-weight: 500;border: 0;}
     &_normweight{font-weight: 400;}
+
     &_logout{
         display: inline-flex;align-items: center;gap: 4px;color: #a00;font-weight: 400;
         &::before{content: url('/public/logout.svg');width: 16px;height: 17px;}
     }
+
     &.loading{
         color: transparent;
         &::before{content: url('/public/load.svg');position: absolute;left: calc(50% - 15px);top: calc(50% - 15px);width: 30px;height: 30px;}
     }
+
     &_chat-settings{
         aspect-ratio: 1/1;padding: 0;
         &::before{content: url('/public/settings.svg');width: 100%;height: 100%;}
     }
 }
+
 .button-prof-left{
     &::before{content: url('/public/profile.svg');display: inline-block;width: 14px;height: 14px;margin: 0 4px 0 0;}
 }
+
 .button_photo{
     &::before{content: url('/public/add_photo.svg');display: inline-block;width: 30px;height: 30px;}
 }
+
 .button_file{
     &::before{content: url('/public/add_file.svg');display: inline-block;width: 30px;height: 30px;}
 }
+
 .button_location{
     &::before{content: url('/public/add_location.svg');display: inline-block;width: 30px;height: 30px;}
 }

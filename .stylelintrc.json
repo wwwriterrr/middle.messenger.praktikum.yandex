@@ -1,7 +1,12 @@
 {
   "extends": "stylelint-config-standard",
   "rules": {
-    "color-hex-case": "lower"
+    "color-hex-length": "short",
+    "declaration-block-single-line-max-declarations": null,
+    "selector-class-pattern": null,
+    "no-descending-specificity": null,
+    "block-no-empty": null,
+    "no-duplicate-selectors": null
   },
   "ignoreFiles": [
     "dist/*"

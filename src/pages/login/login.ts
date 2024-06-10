@@ -10,13 +10,6 @@ interface IProps{
 
 export default class LoginPage extends Block<IProps> {
     constructor(props: any) {
-        /*const inputComponents = props.inputs.reduce((acc, data) => {
-            const component = new Input({label: data});
-            acc[component._id] = component;
-            return acc;
-        }, {});*/
-
-
         super({
             ...props,
             FormLogin: new FormWrapper({

@@ -1,3 +1,4 @@
+import './form.css';
 export { NavigatePage } from './nav';
 export { LoginPage } from './login';
 export { RegistratePage } from './registrate';

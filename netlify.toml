@@ -2,17 +2,22 @@
     publish = "dist/"
     command = "npx vite build"
 
-[[redirects]]
-    from = "/public/wm.svg"
-    to = "/wm.svg"
+#[[redirects]]
+#    from = "/public/wm.svg"
+#    to = "/wm.svg"
+
+#[[redirects]]
+#    from = "/public/*"
+#    to = "/:splat"
+
+#[[redirects]]
+#    from = "/src/assets/img/*"
+#    to = "/:splat"
 
 [[redirects]]
-    from = "/public/*"
-    to = "/:splat"
-
-[[redirects]]
-    from = "/src/assets/img/*"
-    to = "/:splat"
+    from = "/*"
+    to = "/"
+    status = 200
 
 #[context.production]
 #  publish = "dist/"
